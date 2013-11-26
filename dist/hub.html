@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+   <meta charset="utf-8" />
+   <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+   <!-- Mobile viewport optimized: h5bp.com/viewport -->
+   <meta name="viewport" content="width=device-width">
+
+   <title>Nev lunch manager</title>
+
+   <meta name="robots" content="noindex, nofollow">
+   <meta name="description" content="Lunch manager for Nevexis" />
+   <meta name="keywords" content="food, lunch, dimitur, cvetkov, metroui, metro-ui, metro ui, nevexis" />
+   <meta name="author" content="Kirov"/>
+
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+   <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro.css">
+   <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-responsive.css">
+   <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-icons.css">
+   <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-ui-light.css">
+   <link rel="stylesheet" type="text/css" href="./assets/css/datepicker.css">
+   <link rel="stylesheet" type="text/css" href="./assets/css/kirov.css">
+
+   <!--  these two css are to use only for documentation -->
+   <link rel="stylesheet" type="text/css" href="./assets/css/demo.css">
+
+   <link rel="shortcut icon" href="./assets/ico/favicon.ico">
+   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./assets/ico/apple-touch-icon-144-precomposed.png">
+   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="./assets/ico/apple-touch-icon-114-precomposed.png">
+   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="./assets/ico/apple-touch-icon-72-precomposed.png">
+   <link rel="apple-touch-icon-precomposed" href="./assets/ico/apple-touch-icon-57-precomposed.png">
+  
+   <!-- All JavaScript at the bottom, except for Modernizr and Respond.
+      Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+      For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+   <script src="./assets/js/modernizr-2.6.2.min.js"></script>
+
+</head>
+
+<body>
+   <!--[if lt IE 7]>
+   <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+   <![endif]-->
+	<div id="pomak"></div>
+   <div id="wrap">
+   
+      <!-- Header
+      ================================================== -->
+      <div id="nav-bar" class="">
+         <div class="pull-left">
+            <div id="header-container">
+               <h5>Nevexis lunch manager</h5>
+               <div class="dropdown1">
+                  <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
+                     27.12.2013
+                  </a>
+				</div>
+            </div>
+         </div>
+         <div class="pull-right">
+            <div id="top-info" class="pull-right">
+			<div class="pull-left">
+			<div class="dropdown">
+                  <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
+                     <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                  <li><a href="#">Logout</a></li>
+               </ul>
+            </div>
+			
+			</div>
+            <a id="logged-user" href="#" class="win-command pull-right" style="margin-right: 40px;">
+               <span class="win-commandicon win-commandring icon-user"></span>
+            </a>
+            <div class="pull-left">
+               <h3>FirstName</h3>
+               <h4>LastName</h4>
+            </div>
+         </div>
+      </div>
+      </div>
+   
+      <div id="alerts-container">
+         <div id="toast-example1" class="toast toasttext02 fade in">
+            <button type="button" class="close" data-dismiss="alert"></button>
+            <div class="pull-left">
+               <div class="toast-object icon-info-4"></div>
+            </div>
+            <div class="toast-body">
+               <h4 class="toast-heading">Info</h4>
+               <p>The new menu for today has not arrived yet.</p>
+            </div>
+         </div>
+      </div>
+   
+      <!--<div id="metro-container" class="-container">-->
+         <!--<div class="row">-->
+            <!--<div id="hub" class="metro">-->
+               <div class="metro panorama" style="width: 97%"> <!-- Kirov -->
+                  <div class="panorama-sections">
+					<div class="panorama-section" style="min-width: 1600px;">
+					 <h2>Place order</h2>
+					 
+					 
+					 
+					<div class="container">
+      <div class="row" id="meals">
+         <div class="metro span6">
+			<article class="tile-listviewitem-detail">
+				<header>
+                  <img width="182" height="182" src="holder.js/182x182" />
+                  <div class="titles">
+                     <h1>Menu</h1>
+                  </div>
+               </header>
+			</article>
+            <div id="tile-listview-demo" class="tile-listviewitem-container">
+   
+               <div class="row-fluid meal">
+                  <div class="tile-listviewitem">
+                     <div class="span2">
+                        &nbsp;
+                     </div>
+                     <div class="span10">
+                        <div class="detail">
+                           <div class="title" style="display: inline-block">Гъбена супа</div>
+                           <div class="subtitle" style="display: inline-block">1.99 лв.</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+   
+               <div class="row-fluid meal">
+                  <div class="tile-listviewitem">
+                     <div class="span2">
+                        &nbsp;
+                     </div>
+                     <div class="span10">
+                        <div class="detail">
+                           <div class="title" style="display: inline-block">Пица с черно тесто,кренвирш и топено сирене -голяма</div>
+                           <div class="subtitle" style="display: inline-block">1.99 лв.</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+			   
+			   <div class="row-fluid meal">
+                  <div class="tile-listviewitem">
+                     <div class="span2">
+                         &nbsp;
+                     </div>
+                     <div class="span10">
+                        <div class="detail">
+                           <div class="title" style="display: inline-block">агнешко печено на пещ с дроб сарма и зелена салата</div>
+                           <div class="subtitle" style="display: inline-block">1.99 лв.</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+			   
+			   <div class="row-fluid meal">
+                  <div class="tile-listviewitem">
+                     <div class="span2">
+                        <img src="holder.js/112x112" />
+                     </div>
+                     <div class="span10">
+                        <div class="detail">
+                           <div class="title" style="display: inline-block">пържени кюфтета със пържени картофи и лютеница</div>
+                           <div class="subtitle" style="display: inline-block">1.99 лв.</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+			   
+			   <div class="row-fluid meal">
+                  <div class="tile-listviewitem">
+                     <div class="span2">
+                        <img src="holder.js/112x112" />
+                     </div>
+                     <div class="span10">
+                        <div class="detail">
+                           <div class="title" style="display: inline-block">Айдемирска салата(кисело зеле,бекон,червен пипер на тиган)</div>
+                           <div class="subtitle" style="display: inline-block">1.99 лв.</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+  
+            </div>
+         </div>
+   
+         <div class="metro span6">
+            <article class="tile-listviewitem-detail">
+               <header>
+                  <img width="182" height="182" src="holder.js/182x182" />
+                  <div class="titles">
+                     <h1>My order</h1>
+					 <h2>Main</h2>
+                  </div>
+               </header>
+            </article>
+			<div id="primary" class="tile-listviewitem-container"></div>
+			<article class="tile-listviewitem-detail">
+               <header>
+                  <img width="182" height="182" src="holder.js/182x182" />
+                  <div class="titles">
+                     <h2>backup</h2>
+                  </div>
+               </header>
+            </article>
+			<div id="secondary" class="tile-listviewitem-container"></div>
+         </div>
+      </div>
+   </div>	
+					
+					</div>
+					
+					
+                     <div class="panorama-section tile-span-8" style="min-width: 1600px;">
+				
+                        <h2>Total orders</h2>
+						<div>
+							KUR
+						</div>
+                        
+   
+                     </div>
+   
+   
+                     <div class="panorama-section tile-span-4">
+   
+                        <h2>Misc stuff</h2>
+   
+                        <a class="tile app bg-color-grayLight" href="#">
+                           <div class="image-wrapper">
+                              <span class="icon icon-bug-2"></span>
+                           </div>
+                           <div class="app-label">Jira</div>
+                        </a>
+   
+                        <a class="tile app bg-color-blue" href="#">
+                           <div class="image-wrapper">
+                              <span class="icon icon-facebook"></span>
+                           </div>
+                           <div class="app-label">Facebook</div>
+                        </a>
+						<div class="hover panel tile wide imagetext bg-color-greenDark">
+							<div class="front" href="#">
+							   <div class="image-wrapper">
+								  <span class="icon  icon-happy"></span>
+							   </div>
+							   <div class="column-text">
+								  <div class="text4">Joke of the day</div>
+							   </div>
+							   <div class="app-label">Monday 12 january</div>
+							</div>
+							<div class="back" href="#">
+							   
+							   <div class="column-text">
+								  <div class="text4">What is Bruce Lee’s favorite drink? Wataaaaah!</div>
+							   </div>
+							   
+							</div>
+						</div>
+                        <a class="tile app bg-color-purple" href="#">
+                           <div class="image-wrapper">
+                              <span class="icon  icon-address-book-2"></span>
+                           </div>
+                           <div class="app-label">Confluence</div>
+                        </a>
+   
+                        <a class="tile app bg-color-blueDark" href="#">
+                           <div class="image-wrapper">
+                              <span class="icon icon-clock"></span>
+                           </div>
+                           <div class="app-label">Timesheet</div>
+                        </a>
+   
+                     </div>
+   
+                  </div>
+               </div>
+               <a id="panorama-scroll-prev" href="#"></a>
+               <a id="panorama-scroll-next" href="#"></a>
+               
+            <!--</div>-->
+         <!--</div>-->
+      <!--</div>-->
+   
+   </div>
+   <div id="charms" class="win-ui-dark slide">
+   
+      <div id="theme-charms-section" class="charms-section">
+         <div class="charms-header">
+            <a href="#" class="close-charms win-backbutton"></a>
+            <h2>Settings</h2>
+         </div>
+   
+         <div class="row-fluid">
+            <div class="span12">
+   
+               <form class="">
+                  <label for="win-theme-select">Change theme:</label>
+                  <select id="win-theme-select" class="">
+                     <option value="metro-ui-light">Light</option>
+                     <option value="metro-ui-dark">Dark</option>
+                  </select>
+               </form>
+   
+            </div>
+         </div>
+      </div>
+   
+   </div>
+
+   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+   <script src="//code.jquery.com/jquery-1.10.0.min.js"></script>
+   <script>window.jQuery || document.write("<script src='assets/js/jquery-1.10.0.min.js'>\x3C/script>")</script>
+
+   <!--[if IE 7]>
+   <script type="text/javascript" src="scripts/bootmetro-icons-ie7.js">
+   <![endif]-->
+
+   <script type="text/javascript" src="./assets/js/min/bootstrap.min.js"></script>
+   <script type="text/javascript" src="./assets/js/bootmetro-panorama.js"></script>
+   <script type="text/javascript" src="./assets/js/bootmetro-pivot.js"></script>
+   <script type="text/javascript" src="./assets/js/bootmetro-charms.js"></script>
+   <script type="text/javascript" src="./assets/js/bootstrap-datepicker.js"></script>
+
+   <script type="text/javascript" src="./assets/js/jquery.mousewheel.min.js"></script>
+   <script type="text/javascript" src="./assets/js/jquery.touchSwipe.min.js"></script>
+
+   <script type="text/javascript" src="./assets/js/holder.js"></script>
+   <!--<script type="text/javascript" src="./assets/js/perfect-scrollbar.with-mousewheel.min.js"></script>-->
+   <script type="text/javascript" src="./assets/js/demo1.js"></script>
+
+
+   <script type="text/javascript">
+
+      $('.panorama').panorama({
+         //nicescroll: false,
+         showscrollbuttons: true,
+         keyboard: true,
+         parallax: true
+      });
+
+//      $(".panorama").perfectScrollbar();
+
+      $('#pivot').pivot();
+
+   </script>
+   <script type="text/javascript">
+           // set up hover panels
+           // although this can be done without JavaScript, we've attached these events
+          // because it causes the hover to be triggered when the element is tapped on a touch device
+        $('.hover').hover(function(){
+            $(this).addClass('flip');
+        },function(){
+            $(this).removeClass('flip');
+        });
+
+	window.oncontextmenu = function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+	};
+	
+	$('.meal').mousedown(function(event) {
+    switch (event.which) {
+        case 1:
+            $(this).clone().appendTo("#primary").click(function(){$(this).remove()});
+            break;
+        case 2:
+            alert('Middle mouse button pressed');
+            break;
+        case 3:
+            $(this).clone().appendTo("#secondary").click(function(){$(this).remove()});
+            break;
+        default:
+            alert('You have a strange mouse');
+    }
+});
+	
+ </script>
+</body>
+</html>
