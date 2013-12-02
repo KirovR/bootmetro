@@ -158,6 +158,7 @@
 /* Load this script using conditional IE comments if you need to support IE 7 and IE 6. */
 
 window.onload = function() {
+alert("kurec");
 	function addIcon(el, entity) {
 		var html = el.innerHTML;
 		el.innerHTML = '<span style="font-family: \'icomoon\'">' + entity + '</span>' + html;
@@ -1322,11 +1323,13 @@ window.onload = function() {
 		el = els[i];
 		attr = el.getAttribute('data-icon');
 		if (attr) {
+		alert("lalalla")
 			addIcon(el, attr);
 		}
 		c = el.className;
 		c = c.match(/icon-[^\s'"]+/);
 		if (c && icons[c[0]]) {
+		alert("lalalla")
 			addIcon(el, icons[c[0]]);
 		}
 	}
@@ -1352,7 +1355,7 @@ window.onload = function() {
 
 
 !function ($) {
-
+alert("kurecasd");
    "use strict";
 
 

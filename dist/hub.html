@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-j1s"> <!--<![endif]-->
 <head>
    <meta charset="utf-8" />
    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
@@ -344,6 +344,48 @@
    <script type="text/javascript">
 
       $('.panorama').panorama({
+         //nicescroll: false,
+         showscrollbuttons: true,
+         keyboard: true,
+         parallax: true
+      });
+
+//      $(".panorama").perfectScrollbar();
+
+      $('#pivot').pivot();
+
+   </script>
+   <script type="text/javascript">
+           // set up hover panels
+           // although this can be done without JavaScript, we've attached these events
+          // because it causes the hover to be triggered when the element is tapped on a touch device
+        $('.hover').hover(function(){
+            $(this).addClass('flip');
+        },function(){
+            $(this).removeClass('flip');
+        });
+
+	window.oncontextmenu = function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+	};
+	
+	$('.meal').mousedown(function(event) {
+    switch (event.which) {
+        case 1:
+            $(this).clone().appendTo("#primary").click(function(){$(this).remove()});
+            break;
+        case 2:
+            alert('Middle mouse button pressed');
+            break;
+        case 3:
+            $(this).clone().appendTo("#secondary").click(function(){$(this).remove()});
+            break;
+        default:
+            alert('You have a strange mouse');
+    }
+});      $('.panorama').panorama({
          //nicescroll: false,
          showscrollbuttons: true,
          keyboard: true,
