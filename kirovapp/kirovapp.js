@@ -132,7 +132,7 @@ if (Meteor.isServer) {
                    "Мания със зеле",
                    "Кюфтета с гарнитура"];
       for (var i = 0; i < names.length; i++)
-        AllMeals.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5, orderQuantity : 0});
+        AllMeals.insert({name: names[i], score: ( Math.floor(Random.fraction()*10)*5 ), orderQuantity: 0, removed: false});
     }
   });
   Meteor.publish("allMeals", function () {

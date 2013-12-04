@@ -3,7 +3,8 @@ $(document).ready(function(){
          //nicescroll: false,
          showscrollbuttons: true,
          keyboard: true,
-         parallax: true
+         parallax: true,
+		 mousewheel : false
       });
 
 //      $(".panorama").perfectScrollbar();

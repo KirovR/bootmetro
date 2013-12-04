@@ -32,7 +32,18 @@ margin: 0 0 0;
 min-height: 22px;
 }
 
-
+#sidebar{
+    width: 190px;
+    height: 300px;
+    border: none;
+    overflow: hidden;
+}
+#sidebar #scroller{
+    width: 215px;
+    height: 300px;
+    padding-bottom: 15px;
+    overflow: scroll; 
+}
 
 
 
