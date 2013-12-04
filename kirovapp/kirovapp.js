@@ -3,10 +3,16 @@
 
 AllMeals = new Meteor.Collection("allMeals");
 SelectedMeals = new Meteor.Collection("myMeals");
-Counts = new Meteor.Collection("counts");
+
+AllMeals.allow({
+    update : function(userId, doc, fields, modifier){
+        return !_.difference(["orderQuantity"], fields).length
+    }
+
+});
+
 SelectedMeals.allow({
 	insert : function(userId, doc){
-	console.log((null !== userId));
 		return (null !== userId);
 	},
 	update : function(userId, doc, fields, modifier){
@@ -18,12 +24,20 @@ SelectedMeals.allow({
 });
 if (Meteor.isClient) {
    // Meteor.subscribe("totalOrders");
+
+    Handlebars.registerHelper('arrayify',function(obj){
+        result = [];
+        for (var key in obj) {
+            if('_id' !== key)
+                result.push({name:key,quantity:obj[key]})
+        };
+        return result;
+    });
 		
 	Meteor.subscribe("allMeals");
 	Meteor.autorun(function () {
 		Meteor.subscribe("myMeals", Meteor.userId());
 	});
-	Meteor.subscribe("counts");
 	
 	
 	Template.meallist.players = function () {
@@ -31,13 +45,16 @@ if (Meteor.isClient) {
   };
   
   Template.primaryMeal.meals = function () {
-    return SelectedMeals.find();
+    return SelectedMeals.find({removed : false});
   };
-  
+
   Template.secondaryMeal.meals = function () {
-    return SelectedMeals.find(); 
+    return SelectedMeals.find({removed : false});
   };
- 
+
+    Template.allMealsToOrder.meals = function(){
+        return AllMeals.find({orderQuantity : {$gt : 0}}, {sort: {score: -1, name: 1}});
+    }
 
   Template.player.events({
     'click': function () {
@@ -49,7 +66,7 @@ if (Meteor.isClient) {
 			if(SelectedMeals.find({"primary._id" : this._id}).fetch().length == 0){
 			//console.log(totalOrders);
 				//var that =  jQuery.extend(true, {}, this);
-				SelectedMeals.insert({primary: this, owner : Meteor.userId()}, function(err){
+				SelectedMeals.insert({primary: this, owner : Meteor.userId(), removed : false}, function(err){
 					if(err !== undefined && err.error === 403){ //access denied
 						console.log("Please login");  //TODO jamz
 						return;
@@ -57,15 +74,13 @@ if (Meteor.isClient) {
 				});
 				var secondaryMealWithSameName = SelectedMeals.findOne({"secondary._id" : this._id});
 				if(secondaryMealWithSameName != undefined ){
-					console.log(secondaryMealWithSameName);
 					SelectedMeals.update({_id : secondaryMealWithSameName._id}, {$unset : {secondary : 1 }});
 				}
 				
 			}
-			console.log('left')
             break;
         case 2:
-            console.log("Current room has " + Counts.findOne() + " messages.");
+            console.log( Counts.findOne());
               break;
         case 3:
 			if( SelectedMeals.find({ $or : [ {"primary._id" : this._id}, {"secondary._id" : this._id} ] }).fetch().length > 0 ){
@@ -90,12 +105,11 @@ if (Meteor.isClient) {
 		if(freePrimaryMeal){
 			SelectedMeals.update({_id : freePrimaryMeal._id }, {$set : {secondary : this.secondary} }); 
 		}
-		SelectedMeals.remove({_id : this._id});
+		SelectedMeals.update({_id : this._id}, {$set : {removed : true}});
 	}
   });
   Template.secondaryMeal.events({
 	'click .detail' : function(event){
-		console.log(SelectedMeals.findOne({"secondary._id" : this._id}));
 		SelectedMeals.update({_id : this._id}, {$unset : {secondary : 1}}); 
 	}
 });
@@ -118,74 +132,39 @@ if (Meteor.isServer) {
                    "Мания със зеле",
                    "Кюфтета с гарнитура"];
       for (var i = 0; i < names.length; i++)
-        AllMeals.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5});
+        AllMeals.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5, orderQuantity : 0});
     }
   });
   Meteor.publish("allMeals", function () {
 	return AllMeals.find({});
+
   });
   Meteor.publish("myMeals", function (userId) {
 	return SelectedMeals.find({owner : userId});
   });
 
-    var ordersMap = {};
-    var allMealsCursor = SelectedMeals.find({});
-    console.log("Starting modofoka");
-    allMealsCursor.forEach(function(meal){
-        if(ordersMap.hasOwnProperty(meal.primary.name)){
-            ordersMap[meal.primary.name] += 1;
-        }else{
-            ordersMap[meal.primary.name] = 1;
-        }
-    });
-    console.log("Ending modofoka");
-    console.log(ordersMap);
-   // server: publish the current size of a collection
- Meteor.publish("counts", function () {
-    var self = this;
-    var uuid = Meteor.uuid();
-    var count = 0;
-    var initializing = true;
 
-    var handle = SelectedMeals.find({}).observeChanges({
-        added: function (doc, idx) {
+  SelectedMeals.find({}).observeChanges({
+         added: function (doc, idx) {
+                 var primaryOrderedMeal =idx.primary._id;
+                 AllMeals.update({_id : primaryOrderedMeal}, {$inc : {orderQuantity : 1 } });
 
-            console.log("adding")
-            console.log(initializing);
-            console.log(idx);
-            if (!initializing) {
-                if( ordersMap.hasOwnProperty(idx.primary.name)) { //? ( ordersMap[doc.primary.name]+=1 ) : ( ordersMap[doc.primary.name] = 1 )
-                    ordersMap[idx.primary.name] += 1;
-                }else{
-                    ordersMap[idx.primary.name] = 1;
-                }
-                self.changed("counts", uuid, ordersMap);
-            }
-        },
-        removed: function (doc, idx) {
-            count--;
-            self.changed("counts", uuid, {
-                count: count
-            });
-        } 
-        // don't care about moved or changed
-    });
+         },
+         changed: function(doc, fields){
+           console.log(fields);
+            if(fields.hasOwnProperty("removed")){
+                var deletedMealId = SelectedMeals.findOne({_id: doc}).primary._id
+                AllMeals.update({_id : deletedMealId}, {$inc : {orderQuantity : -1 } });
+                SelectedMeals.remove({_id : doc});
+           }
+         },
+         removed: function (doc) {
+             var allMealsCursor = SelectedMeals.find({});
 
-    initializing = false;
+         }
+         // don't care about moved or changed
+     });
 
-    // publish the initial count.  observeChanges guaranteed not to return
-    // until the initial set of `added` callbacks have run, so the `count`
-    // variable is up to date.
-    self.added("counts", uuid, ordersMap);
-
-    // and signal that the initial document set is now available on the client
-    self.ready();
-
-    // turn off observe when client unsubs
-    self.onStop(function () {
-        handle.stop();
-    });
-});
   
   
 }

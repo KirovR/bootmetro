@@ -23,12 +23,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="kirovapp.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="kirovapp.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kirovapp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="160" column="17" selection-start="5101" selection-end="5101" vertical-scroll-proportion="1.0220264" vertical-offset="1792" max-vertical-offset="3349">
+            <state line="51" column="47" selection-start="1347" selection-end="1347" vertical-scroll-proportion="24.403847" vertical-offset="2136" max-vertical-offset="2992">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="kirovapp.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/kirovapp.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="325" column="47" selection-start="12270" selection-end="12270" vertical-scroll-proportion="0.7919217" vertical-offset="4878" max-vertical-offset="5746">
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#3;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#3;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#4;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#4;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -45,6 +59,7 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/kirovapp.js" />
+        <option value="$PROJECT_DIR$/kirovapp.html" />
       </list>
     </option>
   </component>
@@ -120,7 +135,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -156,9 +171,21 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/kirovapp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="17" selection-start="5101" selection-end="5101" vertical-scroll-proportion="1.0220264" vertical-offset="1792" max-vertical-offset="3349">
+        <state line="51" column="47" selection-start="1347" selection-end="1347" vertical-scroll-proportion="24.403847" vertical-offset="2136" max-vertical-offset="2992">
           <folding>
             <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kirovapp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="325" column="47" selection-start="12270" selection-end="12270" vertical-scroll-proportion="0.7919217" vertical-offset="4878" max-vertical-offset="5746">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#4;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#4;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -164,7 +164,7 @@
 				
                         <h2>Total orders</h2>
 						<div>
-							KUR
+						 {{> allMealsToOrder}}
 						</div>
                         
    
@@ -300,4 +300,33 @@
                </div>
 </template>
 
-
+<template name="allMealsToOrder">
+    {{#each  meals}}
+    <div class="row-fluid meal">
+        <div class="tile-listviewitem">
+            <div class="span2">
+                &nbsp;
+            </div>
+            <div class="span10">
+                <div class="detail">
+                    <div class="title" style="display: inline-block">{{name}}</div>
+                    <div class="subtitle" style="display: inline-block">{{orderQuantity}} br.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="row-fluid meal">
+        <div class="tile-listviewitem">
+            <div class="span2">
+                &nbsp;
+            </div>
+            <div class="span10">
+                <div class="detail">
+                    NO MEALS ORDERED!!!!!!!!!!!
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</template>
