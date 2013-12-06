@@ -53,7 +53,7 @@
    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
    <![endif]-->
 	<div id="pomak"></div>
-   <div id="wrap">
+   <div id="wrap" onresize="resizeAllMealsDiv()">
    
       <!-- Header
       ================================================== -->
@@ -117,7 +117,7 @@
 					 
 					<div class="container">
       <div class="row" id="meals">
-         <div class="metro span6">
+         <div class="metro span5">
 			<article class="tile-listviewitem-detail">
 				<header>
                    
@@ -127,11 +127,13 @@
                </header>
 			</article>
             <div id="tile-listview-demo" class="tile-listviewitem-container">
-				{{> meallist}}
+                <div id="scroller">
+				    {{> meallist}}
+                </div>
             </div>
          </div>
    
-         <div class="metro span6">
+         <div class="metro span6 offset1">
             <article class="tile-listviewitem-detail">
                <header>
                    
@@ -141,8 +143,10 @@
                   </div>
                </header>
             </article>
-			<div id="primary" class="tile-listviewitem-container">
-				{{> primaryMeal}}
+			<div id="primary" class="tile-listviewitem-container" >
+                <div>
+				    {{> primaryMeal}}
+                </div>
 			</div>
 			<article class="tile-listviewitem-detail">
                <header>
@@ -152,9 +156,9 @@
                   </div>
                </header>
             </article>
-			<div id="secondary" class="tile-listviewitem-container">
-				{{> secondaryMeal}}
-			</div>
+             <div id="secondary" class="tile-listviewitem-container">
+                 {{> secondaryMeal}}
+             </div>
          </div>
       </div>
    </div>	
@@ -162,90 +166,14 @@
 					</div>
 					
 					
-                     <div class="panorama-section tile-span-8" style="min-width: 1600px;">
+             <div class="panorama-section tile-span-8" style="min-width: 1600px;">
 				<div class="container">
 					<div class="row">
 						<div class="metro span6">
 							<h2>Total orders</h2>
 							<div>
+
 							 {{> allMealsToOrder}}
-							     <div id="sidebar">
-    <div id="scroller">
-        <p>Scroll Me!</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-        <p>Hello World</p>
-    </div>
-</div>
 							</div>
                         </div>
 					</div>
@@ -366,10 +294,10 @@
 <template name="player">
  <div class="row-fluid meal">
                   <div class="tile-listviewitem">
-                     <div class="span2">
+                     <div class="span1">
                         &nbsp;
                      </div>
-                     <div class="span10">
+                     <div class="span11">
                         <div class="detail">
                            <div class="title" style="display: inline-block">{{name}}</div>
                            <div class="subtitle" style="display: inline-block">{{score}} лв.</div>

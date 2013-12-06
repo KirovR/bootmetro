@@ -25,7 +25,17 @@ $(document).ready(function(){
     event.stopPropagation();
     return false;
 	};
-	
+
+    $("#tile-listview-demo").css("height", $(window).height()-200);
+
+    var globalTimer = null;
+
+    $(window).resize(function() {
+        clearTimeout(globalTimer);
+        globalTimer = setTimeout(function(){$("#tile-listview-demo").css("height", $(window).height()-200)}, 500);
+    });
+
+
 
 
 });

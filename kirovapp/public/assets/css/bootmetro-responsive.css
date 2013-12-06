@@ -152,10 +152,12 @@
     width: 670px;
   }
   .span6 {
-    width: 570px;
+   -- width: 570px;
+      widthL 50%;
   }
   .span5 {
-    width: 470px;
+   -- width: 470px;
+      width: 41%;
   }
   .span4 {
     width: 370px;
@@ -200,7 +202,8 @@
     margin-left: 330px;
   }
   .offset2 {
-    margin-left: 230px;
+    --margin-left: 230px;
+      width: 16%
   }
   .offset1 {
     margin-left: 130px;
