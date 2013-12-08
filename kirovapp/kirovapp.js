@@ -47,14 +47,19 @@ if (Meteor.isClient) {
   Template.primaryMeal.meals = function () {
     return SelectedMeals.find({removed : false});
   };
-
-  Template.secondaryMeal.meals = function () {
-    return SelectedMeals.find({removed : false});
-  };
+  Template.kur.options = function () {
+      var selected = Session.get("SelectedPrimaryMeal")
+      return SelectedMeals.find({removed: false, secondary: {$exists: true}, _id : {$ne : selected}});
+  }
+//  Template.secondaryMeal.meals = function () {
+//    return SelectedMeals.find({removed : false});
+//  };
 
     Template.allMealsToOrder.meals = function(){
         return AllMeals.find({orderQuantity : {$gt : 0}}, {sort: {score: -1, name: 1}});
     }
+
+    var colorStack = ["#FFFFFF", "#F0AD4E", "#5BC0DE", "#5CB85C","#D9534F","#428BCA"];
 
   Template.player.events({
     'click': function () {
@@ -66,7 +71,9 @@ if (Meteor.isClient) {
 			if(SelectedMeals.find({"primary._id" : this._id}).fetch().length == 0){
 			//console.log(totalOrders);
 				//var that =  jQuery.extend(true, {}, this);
-				SelectedMeals.insert({primary: this, owner : Meteor.userId(), removed : false}, function(err){
+                var lol = colorStack.pop();
+                console.log(lol);
+				SelectedMeals.insert({primary: this, color : lol, owner : Meteor.userId(), removed : false}, function(err){
 					if(err !== undefined && err.error === 403){ //access denied
 						console.log("Please login");  //TODO jamz
 						return;
@@ -105,14 +112,27 @@ if (Meteor.isClient) {
 		if(freePrimaryMeal){
 			SelectedMeals.update({_id : freePrimaryMeal._id }, {$set : {secondary : this.secondary} }); 
 		}
+        colorStack.push(this.color);
 		SelectedMeals.update({_id : this._id}, {$set : {removed : true}});
-	}
+	},
+    'click .caret' : function(event){
+      //  console.log(this._id);
+        Session.set("SelectedPrimaryMeal", this._id);
+    }
   });
-  Template.secondaryMeal.events({
-	'click .detail' : function(event){
-		SelectedMeals.update({_id : this._id}, {$unset : {secondary : 1}}); 
-	}
-});
+//  Template.secondaryMeal.events({
+//	'click .detail' : function(event){
+//		SelectedMeals.update({_id : this._id}, {$unset : {secondary : 1}});
+//	}
+//});
+    Template.kur.events({
+        'click .secondaryAlternative' : function(event){
+            var parentToChangeId = $(event.srcElement).closest(".tile-listviewitem").attr("primaryMealId");
+            var currentSecondaryMeal = SelectedMeals.findOne({_id : parentToChangeId}).secondary;
+            SelectedMeals.update({_id : parentToChangeId}, {$set :{secondary : this.secondary}});
+            SelectedMeals.update({_id : this._id}, { $set: { secondary : currentSecondaryMeal }});
+        }
+    });
   
   
 }

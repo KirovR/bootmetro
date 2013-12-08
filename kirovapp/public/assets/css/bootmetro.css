@@ -8781,7 +8781,7 @@ Tile ListView
   --height: 113px; --kirov
   padding: 7px 0;
   margin: 0 0 13px 0;
-  overflow: hidden;
+ -- overflow: hidden; --kirov
   text-decoration: none;
   cursor: pointer;
   background-color: transparent;

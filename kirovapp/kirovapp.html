@@ -77,7 +77,7 @@
                      <b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu">
-                  <li><a href="#"></a></li>
+                  <li><a href="#">Login</a></li>
                </ul>
             </div>
 			
@@ -115,7 +115,7 @@
 					 <h2>Place order</h2>
 					 
 					 
-					<div class="container">
+					<div class="container" style="width: 100%">
       <div class="row" id="meals">
          <div class="metro span5">
 			<article class="tile-listviewitem-detail">
@@ -133,7 +133,7 @@
             </div>
          </div>
    
-         <div class="metro span6 offset1">
+         <div class="metro span7">
             <article class="tile-listviewitem-detail">
                <header>
                    
@@ -144,8 +144,17 @@
                </header>
             </article>
 			<div id="primary" class="tile-listviewitem-container" >
+                <div class="dropdown">
+                    <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">pa4a</a></li>
+                    </ul>
+                </div>
                 <div>
 				    {{> primaryMeal}}
+
                 </div>
 			</div>
 			<article class="tile-listviewitem-detail">
@@ -157,7 +166,7 @@
                </header>
             </article>
              <div id="secondary" class="tile-listviewitem-container">
-                 {{> secondaryMeal}}
+
              </div>
          </div>
       </div>
@@ -254,11 +263,42 @@
 </template>
 
 <template name="primaryMeal">
+    <div class="row-fluid meal">
+        <div class="tile-listviewitem1">
+            <div class="span2">
+                <div class="ddm">
+                    <div class="dropdown">
+                        <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">pa4a</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="span10">
+                <div class="detail">
+                    <div class="title" style="display: inline-block">golm</div>
+                    <div class="subtitle" style="display: inline-block">hui</div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{#each meals}}
       <div class="row-fluid meal">
-                  <div class="tile-listviewitem">
+                  <div class="tile-listviewitem" primaryMealId="{{_id}}">
                      <div class="span2">
-                        &nbsp;
+                        <div class="ddm" style="float: right; border: 1px solid #000000;width: px; background-color: {{color}}">
+                            <div class="dropdown">
+                                <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                   {{> kur}}
+                                </ul>
+                            </div>
+                        </div>
                      </div>
                      <div class="span10">
                         <div class="detail">
@@ -269,18 +309,16 @@
                   </div>
                </div>
     {{/each}}
-</template>
-
-<template name="secondaryMeal">
+#####################################
     {{#each meals}}
 	 {{#if secondary}}
       <div class="row-fluid meal">
                   <div class="tile-listviewitem">
                      <div class="span2">
-                        &nbsp;
+                         <div style="float: right; right; border: 1px solid #000000; width: 20px; background-color: {{color}}">&nbsp</div>
                      </div>
                      <div class="span10">
-                        <div class="detail" title="{{primary.name}}"> 
+                        <div class="detail" title="{{primary.name}}">
                            <div class="title" style="display: inline-block">{{secondary.name}}</div>
                            <div class="subtitle" style="display: inline-block">{{secondary.score}} лв.</div>
                         </div>
@@ -290,7 +328,11 @@
 	{{/if}}
     {{/each}}
 </template>
-
+<template name="kur">
+    {{#each options}}
+        <li><a class="secondaryAlternative" href="#">{{secondary.name}}</a></li>
+    {{/each}}
+</template>
 <template name="player">
  <div class="row-fluid meal">
                   <div class="tile-listviewitem">
