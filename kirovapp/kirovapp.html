@@ -62,20 +62,22 @@
             <div id="header-container">
                <h5>Nevexis lunch manager</h5>
                <div class="dropdown1">
-                  <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
-                     27.12.2013
-                  </a>
+                  <span style="font-size: 26px;"class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
+                     17.12.2013
+                  </span>
 				</div>
             </div>
          </div>
-		 {{loginButtons}}
+
          <div class="pull-right">
             <div id="top-info" class="pull-right">
 			<div class="pull-left">
 			<div class="dropdown">
+                <!--
                   <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
                      <b class="caret"></b>
                   </a>
+                  -->
                   <ul class="dropdown-menu">
                   <li><a href="#">Login</a></li>
                </ul>
@@ -85,27 +87,26 @@
             <a id="logged-user" href="#" class="win-command pull-right" style="margin-right: 40px;">
                <span class="win-commandicon win-commandring icon-user"></span>
             </a>
-            <div class="pull-left">
-               <h3>FirstName</h3>
-               <h4>LastName</h4>
+            <div class="pull-left" id="kirovlogin">
+                {{loginButtons}}
             </div>
          </div>
       </div>
       </div>
-   
-      <div id="alerts-container">
+   <!--
+      <div id="alerts-container1">
          <div id="toast-example1" class="toast toasttext02 fade in">
             <button type="button" class="close" data-dismiss="alert"></button>
             <div class="pull-left">
                <div class="toast-object icon-info-4"></div>
             </div>
             <div class="toast-body">
-               <h4 class="toast-heading">Info</h4>
+               <h4 class="toast-heading">kirov removedInfo</h4>
                <p>The new menu for today has not arrived yet.</p>
             </div>
          </div>
       </div>
-   
+   -->
       <!--<div id="metro-container" class="-container">-->
          <!--<div class="row">-->
             <!--<div id="hub" class="metro">-->
@@ -134,40 +135,8 @@
          </div>
    
          <div class="metro span7">
-            <article class="tile-listviewitem-detail">
-               <header>
-                   
-                  <div class="titles">
-                     <h1>My order</h1>
-					 <h2>Main</h2>
-                  </div>
-               </header>
-            </article>
-			<div id="primary" class="tile-listviewitem-container" >
-                <div class="dropdown">
-                    <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">pa4a</a></li>
-                    </ul>
-                </div>
-                <div>
 				    {{> primaryMeal}}
 
-                </div>
-			</div>
-			<article class="tile-listviewitem-detail">
-               <header>
-                   
-                  <div class="titles">
-                     <h2>backup</h2>
-                  </div>
-               </header>
-            </article>
-             <div id="secondary" class="tile-listviewitem-container">
-
-             </div>
          </div>
       </div>
    </div>	
@@ -178,7 +147,7 @@
              <div class="panorama-section tile-span-8" style="min-width: 1600px;">
 				<div class="container">
 					<div class="row">
-						<div class="metro span6">
+						<div class="metro span12">
 							<h2>Total orders</h2>
 							<div>
 
@@ -263,33 +232,22 @@
 </template>
 
 <template name="primaryMeal">
-    <div class="row-fluid meal">
-        <div class="tile-listviewitem1">
-            <div class="span2">
-                <div class="ddm">
-                    <div class="dropdown">
-                        <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">pa4a</a></li>
-                        </ul>
-                    </div>
-                </div>
+    <article class="tile-listviewitem-detail">
+        <header>
+            <h1>My order</h1><br>
+            <div class="titles">
+
+                <h2>Main</h2>
             </div>
-            <div class="span10">
-                <div class="detail">
-                    <div class="title" style="display: inline-block">golm</div>
-                    <div class="subtitle" style="display: inline-block">hui</div>
-                </div>
-            </div>
-        </div>
-    </div>
+        </header>
+    </article>
+    <div id="primary" class="tile-listviewitem-container" >
+        <div>
     {{#each meals}}
       <div class="row-fluid meal">
                   <div class="tile-listviewitem" primaryMealId="{{_id}}">
                      <div class="span2">
-                        <div class="ddm" style="float: right; border: 1px solid #000000;width: px; background-color: {{color}}">
+                        <div class="ddm" style="float: right; border: 1px solid #000000;width: 20px; background-color: {{color}}">
                             <div class="dropdown">
                                 <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
                                     <b class="caret"></b>
@@ -309,7 +267,7 @@
                   </div>
                </div>
     {{/each}}
-#####################################
+          <span style="margin-left: 80px;">BACKUP</span>
     {{#each meals}}
 	 {{#if secondary}}
       <div class="row-fluid meal">
@@ -318,7 +276,7 @@
                          <div style="float: right; right; border: 1px solid #000000; width: 20px; background-color: {{color}}">&nbsp</div>
                      </div>
                      <div class="span10">
-                        <div class="detail" title="{{primary.name}}">
+                        <div class="detailSecondary" title="{{primary.name}}">
                            <div class="title" style="display: inline-block">{{secondary.name}}</div>
                            <div class="subtitle" style="display: inline-block">{{secondary.score}} лв.</div>
                         </div>
@@ -327,6 +285,7 @@
                </div>
 	{{/if}}
     {{/each}}
+    </div>
 </template>
 <template name="kur">
     {{#each options}}

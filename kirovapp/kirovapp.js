@@ -56,7 +56,7 @@ if (Meteor.isClient) {
 //  };
 
     Template.allMealsToOrder.meals = function(){
-        return AllMeals.find({orderQuantity : {$gt : 0}}, {sort: {score: -1, name: 1}});
+        return AllMeals.find({orderQuantity : {$gt : 0}}, {sort: {orderQuantity: -1, name: 1}});
     }
 
     var colorStack = ["#FFFFFF", "#F0AD4E", "#5BC0DE", "#5CB85C","#D9534F","#428BCA"];
@@ -72,7 +72,7 @@ if (Meteor.isClient) {
 			//console.log(totalOrders);
 				//var that =  jQuery.extend(true, {}, this);
                 var lol = colorStack.pop();
-                console.log(lol);
+                SelectedMeals.findOne({color: {}})
 				SelectedMeals.insert({primary: this, color : lol, owner : Meteor.userId(), removed : false}, function(err){
 					if(err !== undefined && err.error === 403){ //access denied
 						console.log("Please login");  //TODO jamz
@@ -115,6 +115,9 @@ if (Meteor.isClient) {
         colorStack.push(this.color);
 		SelectedMeals.update({_id : this._id}, {$set : {removed : true}});
 	},
+    'click .detailSecondary' : function(){
+        SelectedMeals.update({_id : this._id}, {$unset : {secondary : 1}});
+    },
     'click .caret' : function(event){
       //  console.log(this._id);
         Session.set("SelectedPrimaryMeal", this._id);
@@ -145,9 +148,10 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
  // SelectedMeals.remove({});
     if (AllMeals.find().count() === 0) {
-      var names = ["пилешка супа", "шкембе чорба", "боб чорбa", "агнешка курбан чорба", "крем супа от моркови", "супа топчета", "пица с черно тесто с бекон и кашкавал- малка", "пица с черно тесто с бекон и кашкавал- голяма", "сурова туршия", "айдемирска салата(кисело зеле,бекон,червен пипер на тиган)", "агнешко печено на пещ с дроб сарма и зелена салата", "бирено бутче със задушени бейби картофи", "пилешки кюфтета с пържени картофи и лютеница", "пълнени сухи чушки с боб", "задушени зеленчуци на фурна в зехтин", "свински мръвки с праз лук и ориз", "запечени кренвирши с кашкавал и гарнитура", "пържени кюфтета с пържени картофи и лютеница", "домашна баница със праз и сирене", "пълнени палачинки с пилешко филе и зеленчуци", "свинско печено на пещ с картофено пюре и печен сос", "задушени картофи на фурна", "сръбско руло със зелена салата", "сирене по шопски на пещ", "огретен от тиквички", "пълнени чушки", "свинско с кисело зеле", "кашкавал на фурна", "зелник на пещ в тесто", "кюфтета по чирпански", "боб яхния", "мозък пане", "пиле женева", "свинско винен кебап", "пилешка кавърма", "мусака", "спанак с ориз", "руло стефани", "леща яхния", "дроб сарма", "пиле с ориз", "боб с наденица", "боб със зеле", "мозък в масло"];
-      for (var i = 0; i < names.length; i++)
-        AllMeals.insert({name: names[i], score: ( Math.floor(Random.fraction()*10)*5 ), orderQuantity: 0, removed: false});
+      var names = [{ price: 2.49, removed: false, orderQuantity:0,   name: 'АГНЕШКА КУРБАН ЧОРБА'				                                                                                                             }, { price: 1.99, removed: false, orderQuantity:0,   name: 'СУПА ТОПЧЕТA'			                                                                                                                         }, { price: 1.99, removed: false, orderQuantity:0,   name: 'ТАРАТОР'		                                                                                                                                 }, { price: 1.99, removed: false, orderQuantity:0,   name: 'ПИЛЕШКА СУПА'			                                                                                                                         }, { price: 2.49, removed: false, orderQuantity:0,   name: 'ШКЕМБЕ ЧОРБА'			                                                                                                                         }, { price: 1.49, removed: false, orderQuantity:0,   name: 'БОБ ЧОРБА'			                                                                                                                             }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ПИЦА С ЧЕРНО ТЕСТО С ПИЛЕШКО ФИЛЕ И ЦАРЕВИЦА  - МАЛКА'                                                                                          }, { price: 4.99, removed: false, orderQuantity:0,   name: 'ПИЦА С ЧЕРНО ТЕСТО С ПИЛЕШКО ФИЛЕ И ЦАРЕВИЦА  - ГОЛЯМА'									                                                     }, { price: 2.99, removed: false, orderQuantity:0,   name: 'САЛАТА КИСЕЛИ КРАСТАВИЧКИ ОТ ТУРШИЯ'				                                                                                             }, { price: 2.99, removed: false, orderQuantity:0,   name: 'СУРОВА ТУРШИЯ'			                                                                                                                         }, { price: 3.99, removed: false, orderQuantity:0,   name: 'АЙДЕМИРСКА САЛАТА(кисело зеле, бекон, червен пипер на тиган)'                 }, { price: 5.99, removed: false, orderQuantity:0,   name: 'ТЕЛЕШКИ КЕБАПЧЕНЦА С БЯЛ ОРИЗ, КИС. КРАСТ. И ЛЮТЕНИЦА'							                             }, { price: 4.49, removed: false, orderQuantity:0,   name: 'ПИЛЕШКИ КЮФТЕТА С ПЪРЖЕНИ КАРТОФИ И ЛЮТЕНИЦА'						                                                                             }, { price: 4.29, removed: false, orderQuantity:0,   name: 'ПЪРЖЕН ШНИЦЕЛ С КАРТОФЕНА САЛАТА И ЛЮТЕНИЦА'								                                                                     }, { price: 6.99, removed: false, orderQuantity:0,   name: 'СВИНСКО ПЕЧЕНО НА ПЕЩ С КАРТОФЕНО ПЮРЕ И ГЪБЕН СОС'									                                                         }, { price: 5.99, removed: false, orderQuantity:0,   name: 'ПИЛЕШКО ФИЛЕ С ТОПЕНО СИРЕНЕ, СМЕТАНА И КИС. КРАСТАВИЧКИ'									                     }, { price: 5.49, removed: false, orderQuantity:0,   name: 'СВИНСКИ МРЪВКИ ПО СЕЛСКИ'									                                                                                     }, { price: 3.99, removed: false, orderQuantity:0,   name: 'КЮФТЕТА ПО ЦАРИГРАДСКИ С КАРТОФЕНО ПЮРЕ'									                                                                     }, { price: 3.69, removed: false, orderQuantity:0,   name: 'ПЪЛНЕНИ ЧУШКИ С БОБ'									                                                                                         }, { price: 5.99, removed: false, orderQuantity:0,   name: 'СВИНСКО КЪЛЦАНО В ТЕСТО'									                                                                                     }, { price: 3.49, removed: false, orderQuantity:0,   name: 'ЗАДУШЕНИ КАРТОФИ НА ФУРНА'									                                                                                     }, { price: 3.99, removed: false, orderQuantity:0,   name: 'БОБ С НАДЕНИЦА'									                                                                                             }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ДРОБ СЪРМА'				                                                                                                                     }, { price: 3.99, removed: false, orderQuantity:0,   name: 'МУСАКА'				                                                                                                                         }, { price: 3.99, removed: false, orderQuantity:0,   name: 'СВИНСКО С КИСЕЛО ЗЕЛЕ'				                                                                                                             }, { price: 3.69, removed: false, orderQuantity:0,   name: 'КАРТОФЕНИ КЮФТЕТА'				                                                                                                                 }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ПИЛЕ ФРИКАСЕ'				                                                                                                                     }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ЗЕЛЕВИ САРМИ'				                                                                                                                     }, { price: 6.99, removed: false, orderQuantity:0,   name: 'МОЗЪК В МАСЛО'				                                                                                                                     }, { price: 2.99, removed: false, orderQuantity:0,   name: 'ЛЕЩА ЯХНИЯ'			                                                                                                                         }, { price: 3.99, removed: false, orderQuantity:0,   name: 'РУЛО СТЕФАНИ'			                                                                                                                         }, { price: 4.29, removed: false, orderQuantity:0,   name: 'СВИНСКА КАВАРМА'			                                                                                                                     }, { price: 3.69, removed: false, orderQuantity:0,   name: 'КАРТОФЕН ПАЙ С КАЙМА'			                                                                                                                 }, { price: 2.99, removed: false, orderQuantity:0,   name: 'БОБ ЯХНИЯ'			                                                                                                                             }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ПИЛЕ С ОРИЗ'		                                                                                                                             }, { price: 6.99, removed: false, orderQuantity:0,   name: 'МОЗЪК ПАНЕ'		                                                                                                                             }];
+        for (var i = 0; i < names.length; i++)
+
+        AllMeals.insert(names[i]);
     }
   });
   Meteor.publish("allMeals", function () {
@@ -179,6 +183,13 @@ if (Meteor.isServer) {
          }
          // don't care about moved or changed
      });
+
+    Meteor.methods({
+
+        missingMeal: function (meal) {
+            console.log(meal);
+        }
+    });
 
   
   

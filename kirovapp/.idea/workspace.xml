@@ -26,10 +26,8 @@
       <file leaf-file-name="kirovapp.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kirovapp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="1228" selection-start="5010" selection-end="5010" vertical-scroll-proportion="-17.884615" vertical-offset="1229" max-vertical-offset="2907">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state line="7" column="22" selection-start="263" selection-end="292" vertical-scroll-proportion="-4.08" vertical-offset="0" max-vertical-offset="3417">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -37,41 +35,16 @@
       <file leaf-file-name="kirovapp.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kirovapp.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="113" column="70" selection-start="5697" selection-end="5697" vertical-scroll-proportion="-7.8076925" vertical-offset="1718" max-vertical-offset="5865">
-              <folding>
-                <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#2;n#div#1;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#4;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#4;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="kirov.css" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/assets/css/kirov.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="17" selection-start="437" selection-end="437" vertical-scroll-proportion="0.26211452" vertical-offset="0" max-vertical-offset="2244">
+            <state line="81" column="39" selection-start="4495" selection-end="4500" vertical-scroll-proportion="-27.0" vertical-offset="0" max-vertical-offset="5882">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kirov.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="kirov.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/compatibility/kirov.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="7" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bootmetro-responsive.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/assets/css/bootmetro-responsive.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="202" column="3" selection-start="2977" selection-end="2977" vertical-scroll-proportion="0.0" vertical-offset="8175" max-vertical-offset="20043">
+            <state line="41" column="0" selection-start="1077" selection-end="1077" vertical-scroll-proportion="0.9219577" vertical-offset="0" max-vertical-offset="799">
               <folding />
             </state>
           </provider>
@@ -88,19 +61,19 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/test.txt" />
-        <option value="$PROJECT_DIR$/kirovapp.js" />
         <option value="$PROJECT_DIR$/client/compatibility/kirov.js" />
         <option value="$PROJECT_DIR$/kirovapp.html" />
         <option value="$PROJECT_DIR$/public/assets/css/bootmetro-responsive.css" />
         <option value="$PROJECT_DIR$/public/assets/css/kirov.css" />
+        <option value="$PROJECT_DIR$/kirovapp.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1066" />
+    <option name="width" value="1616" />
+    <option name="height" value="916" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -175,28 +148,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kirovapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kirovapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="client" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -211,7 +162,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../princess" />
   </component>
   <component name="RunManager">
     <list size="0" />
@@ -226,7 +177,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="916" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -241,11 +192,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -262,31 +213,29 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/kirovapp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="1228" selection-start="5010" selection-end="5010" vertical-scroll-proportion="-17.884615" vertical-offset="1229" max-vertical-offset="2907">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/compatibility/kirov.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="7" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
+        <state line="127" column="75" selection-start="4280" selection-end="4280" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3553">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kirovapp.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="70" selection-start="5697" selection-end="5697" vertical-scroll-proportion="-7.8076925" vertical-offset="1718" max-vertical-offset="5865">
-          <folding>
-            <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#2;n#div#1;n#body#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#3;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#3;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#template#4;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#4;n#!!top" expanded="true" />
-          </folding>
+        <state line="113" column="49" selection-start="5703" selection-end="5703" vertical-scroll-proportion="0.0" vertical-offset="1921" max-vertical-offset="5882">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/css/kirov.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="17" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="2992">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/compatibility/kirov.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="7" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.0" vertical-offset="595" max-vertical-offset="799">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -299,7 +248,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/css/kirov.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="437" selection-end="437" vertical-scroll-proportion="0.26211452" vertical-offset="0" max-vertical-offset="2244">
+        <state line="14" column="17" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2992">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/css/bootmetro-responsive.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="202" column="3" selection-start="2977" selection-end="2977" vertical-scroll-proportion="-6.271164" vertical-offset="8175" max-vertical-offset="20043">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kirovapp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="22" selection-start="263" selection-end="292" vertical-scroll-proportion="-4.08" vertical-offset="0" max-vertical-offset="3417">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kirovapp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="39" selection-start="4495" selection-end="4500" vertical-scroll-proportion="-27.0" vertical-offset="0" max-vertical-offset="5882">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/compatibility/kirov.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="0" selection-start="1077" selection-end="1077" vertical-scroll-proportion="0.9219577" vertical-offset="0" max-vertical-offset="799">
           <folding />
         </state>
       </provider>
