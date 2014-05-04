@@ -159,56 +159,7 @@
                      </div>
    
    
-                     <div class="panorama-section tile-span-4">
-   
-                        <h2>Misc stuff</h2>
-   
-                        <a class="tile app bg-color-grayLight" href="#">
-                           <div class="image-wrapper">
-                              <span class="icon icon-bug-2"></span>
-                           </div>
-                           <div class="app-label">Jira</div>
-                        </a>
-   
-                        <a class="tile app bg-color-blue" href="#">
-                           <div class="image-wrapper">
-                              <span class="icon icon-facebook"></span>
-                           </div>
-                           <div class="app-label">Facebook</div>
-                        </a>
-						<div class="hover panel tile wide imagetext bg-color-greenDark">
-							<div class="front" href="#">
-							   <div class="image-wrapper">
-								  <span class="icon  icon-happy"></span>
-							   </div>
-							   <div class="column-text">
-								  <div class="text4">Joke of the day</div>
-							   </div>
-							   <div class="app-label">Monday 12 january</div>
-							</div>
-							<div class="back" href="#">
-							   
-							   <div class="column-text">
-								  <div class="text4">What is Bruce Lee’s favorite drink? Wataaaaah!</div>
-							   </div>
-							   
-							</div>
-						</div>
-                        <a class="tile app bg-color-purple" href="#">
-                           <div class="image-wrapper">
-                              <span class="icon  icon-address-book-2"></span>
-                           </div>
-                           <div class="app-label">Confluence</div>
-                        </a>
-   
-                        <a class="tile app bg-color-blueDark" href="#">
-                           <div class="image-wrapper">
-                              <span class="icon icon-clock"></span>
-                           </div>
-                           <div class="app-label">Timesheet</div>
-                        </a>
-   
-                     </div>
+
    
                   </div>
                </div>
@@ -260,8 +211,11 @@
                      </div>
                      <div class="span10">
                         <div class="detail">
-                           <div class="title" style="display: inline-block">{{primary.name}}</div>
+                           <div class="title order{{primary.ordered}}" style="display: inline-block">{{primary.name}}</div>
                            <div class="subtitle" style="display: inline-block">{{primary.score}} лв.</div>
+                            {{#unless primary.ordered}}
+                                <div style="display: inline-block"> not ordered</div>
+                            {{/unless}}
                         </div>
                      </div>
                   </div>
@@ -317,8 +271,17 @@
             </div>
             <div class="span10">
                 <div class="detail">
-                    <div class="title" style="display: inline-block">{{name}}</div>
-                    <div class="subtitle" style="display: inline-block">{{orderQuantity}} br.</div>
+                    <div>
+                        <div class="counter" style="display: inline-block">{{orderQuantity}} x </div>
+                        <div class="title" style="display: inline-block">{{name}}</div>
+
+                        {{#if_eq this}}
+                            <div style="display: inline-block"><button class="noMeal login-button" >Няма({{secondaryMealsLeft orderQuantity orderNotes}})</button></div>
+                        {{else}}
+                            &nbsp;
+                        {{/if_eq}}
+                    </div>
+                    <div class="subtitle alternativeMeals" style="display: block">{{orderNotes}}</div>
                 </div>
             </div>
         </div>

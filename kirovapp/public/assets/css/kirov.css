@@ -60,7 +60,7 @@ min-height: 22px;
 #tile-listview-demo #scroller {
     width: 668px;
     height: 99%;
-    padding-bottom: 15px;
+    padding-bottom: 0px;
     overflow: auto;
 }
 a.header-dropdown .caret {
@@ -161,7 +161,35 @@ a.header-dropdown .caret {
     -webkit-transform: rotateX(0deg) rotateY(0deg);
     -moz-transform: rotateX(0deg) rotateY(0deg);
 }
+.counter{
+    color: white;
+    font-size: 25px;
+}
+.title{
+    margin-left: 10px;
+}
+.alternativeMeals{
+    margin-left: 25px;
+    font-size: 11px!important;
+}
+.noMeal {
+    background-clip: padding-box;
+    border: 2px solid #CCCCCC;
+    font-weight: 600;
+    line-height: 1.3636;
+    margin-bottom: 0;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-size: 80%;
+    line-height: 1.5;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 
+}
+.tile-listviewitem .orderfalse{
+    text-decoration: line-through;
+}
 
 
 
