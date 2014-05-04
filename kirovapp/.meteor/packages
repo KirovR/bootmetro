@@ -7,3 +7,4 @@ standard-app-packages
 preserve-inputs
 accounts-ui
 accounts-password
+collection-api

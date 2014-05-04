@@ -162,7 +162,7 @@ if (Meteor.isClient) {
 
 // On server startup, create some players if the database is empty.
 if (Meteor.isServer) {
-  Meteor.startup(function () {
+   Meteor.startup(function () {
       collectionApi = new CollectionAPI({
           authToken: undefined,              // Require this string to be passed in on each request
           apiPath: 'collectionapi',          // API path prefix
