@@ -1,0 +1,43 @@
+<template name="allMealsToOrder">
+    {{#each  meals}}
+    <div class="row-fluid meal">
+        <div class="tile-listviewitem">
+            <div class="span2">
+                &nbsp;
+            </div>
+            <div class="span10">
+                <div class="detail">
+                    <div>
+                        <div class="counter" style="display: inline-block">{{orderQuantity}} x </div>
+                        <div class="title" style="display: inline-block">{{name}}</div>
+
+                        {{#if_eq this}}
+                        <div style="display: inline-block"><button class="noMeal login-button" >Няма({{secondaryMealsLeft orderQuantity orderNotes}})</button></div>
+                        {{else}}
+                        &nbsp;
+                        {{/if_eq}}
+                    </div>
+                    <div class="subtitle alternativeMeals" style="display: block">{{orderNotes}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="row-fluid meal">
+        <div>
+            <div class="span2">
+                &nbsp;
+            </div>
+            <div class="span10">
+                <div class="detail" title="No meals ordered">
+                    Nothing to do here ...
+                    <p id="asdf">{{vic}}</p>
+                </div>
+                <div id="hiddenOrderManiq" style="margin: 500px 0 0 400px; color: #2c4005; cursor: pointer; ">
+                    ?
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</template>

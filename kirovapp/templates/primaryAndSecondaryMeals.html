@@ -1,0 +1,75 @@
+<template name="primaryMeal">
+    <article class="tile-listviewitem-detail">
+        <header>
+            <h1>My order</h1><br>
+        </header>
+    </article>
+    <div id="primary" class="tile-listviewitem-container" >
+        <div>
+            <p style="margin-left: 80px;">MAIN</p>
+            {{#each meals}}
+            <div class="row-fluid meal">
+                <div class="tile-listviewitem" primaryMealId="{{_id}}">
+                    <div class="span2">
+                        <div class="ddm" style="float: right; border: 1px solid #000000;width: 20px; background-color: {{color}}">
+                            <div class="dropdown">
+                                <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {{> secondaryAlternative}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span10">
+                        <div class="detail">
+                            <div class="title order{{primary.ordered}}" style="display: inline-block">{{primary.name}}</div>
+                            <div class="subtitle" style="display: inline-block">{{primary.price}} лв.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            <p style="margin-left: 80px;">BACKUP</p>
+            {{#each meals}}
+            {{#if secondary}}
+            <div class="row-fluid meal">
+                <div class="tile-listviewitem">
+                    <div class="span2">
+                        <div style="float: right; right; border: 1px solid #000000; width: 20px; background-color: {{color}}">&nbsp</div>
+                    </div>
+                    <div class="span10">
+                        <div class="detailSecondary" title="{{primary.name}}">
+                            <div class="title" style="display: inline-block">{{secondary.name}}</div>
+                            <div class="subtitle" style="display: inline-block">{{secondary.price}} лв.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+</template>
+
+<template name="secondaryAlternative">
+    {{#each options}}
+    <li><a class="secondaryAlternative" href="#">{{secondary.name}}</a></li>
+    {{/each}}
+</template>
+
+<template name="displayMealToOrder">
+    <div class="row-fluid meal">
+        <div class="tile-listviewitem">
+            <div class="span1">
+                &nbsp;
+            </div>
+            <div class="span11">
+                <div class="detail">
+                    <div class="title" style="display: inline-block">{{name}}</div>
+                    <div class="subtitle" style="display: inline-block">{{price}} лв.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

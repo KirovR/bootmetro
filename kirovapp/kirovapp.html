@@ -32,6 +32,8 @@
    <link rel="stylesheet" type="text/css" href="./assets/css/slider/flexcrollstyles.css.css">
    <link rel="stylesheet" type="text/css" href="./assets/css/kirov.css">
 
+
+
    <!--  these two css are to use only for documentation -->
    <link rel="stylesheet" type="text/css" href="./assets/css/demo.css">
 
@@ -49,25 +51,17 @@
 </head>
 
 <body>
+    {{> cssBackground}}
    <!--[if lt IE 7]>
    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
    <![endif]-->
-	<div id="pomak"></div>
-   <div id="wrap" onresize="resizeAllMealsDiv()">
+
+   <div id="wrap">
    
       <!-- Header
       ================================================== -->
       <div id="nav-bar" class="">
-         <div class="pull-left">
-            <div id="header-container">
-               <h5>Nevexis lunch manager</h5>
-               <div class="dropdown1">
-                  <span style="font-size: 26px;"class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
-                     17.12.2013
-                  </span>
-				</div>
-            </div>
-         </div>
+         {{> headerTitle}}
 
          <div class="pull-right">
             <div id="top-info" class="pull-right">
@@ -93,27 +87,10 @@
          </div>
       </div>
       </div>
-   <!--
-      <div id="alerts-container1">
-         <div id="toast-example1" class="toast toasttext02 fade in">
-            <button type="button" class="close" data-dismiss="alert"></button>
-            <div class="pull-left">
-               <div class="toast-object icon-info-4"></div>
-            </div>
-            <div class="toast-body">
-               <h4 class="toast-heading">kirov removedInfo</h4>
-               <p>The new menu for today has not arrived yet.</p>
-            </div>
-         </div>
-      </div>
-   -->
-      <!--<div id="metro-container" class="-container">-->
-         <!--<div class="row">-->
-            <!--<div id="hub" class="metro">-->
-               <div class="metro panorama" style="width: 97%"> <!-- Kirov -->
-                  <div class="panorama-sections">
-					<div class="panorama-section" style="min-width: 1600px;">
-					 <h2>Place order</h2>
+       <div class="metro panorama" style="width: 97%"> <!-- Kirov -->
+          <div class="panorama-sections">
+            <div class="panorama-section" style="min-width: 1600px;">
+             <h2>Place order</h2>
 					 
 					 
 					<div class="container" style="width: 100%">
@@ -176,128 +153,15 @@
 </body>
 
 
-<template name="meallist">
-    {{#each players}}
-      {{> player}}
-    {{/each}}
+
+<template name="cssBackground">
+    <style>
+        html body{
+        background: url("./assets/img/bg{{options.background}}.jpg") repeat scroll 0 0 rgba(0, 0, 0, 0);
+        }
+    </style>
 </template>
 
-<template name="primaryMeal">
-    <article class="tile-listviewitem-detail">
-        <header>
-            <h1>My order</h1><br>
-            <div class="titles">
 
-                <h2>Main</h2>
-            </div>
-        </header>
-    </article>
-    <div id="primary" class="tile-listviewitem-container" >
-        <div>
-    {{#each meals}}
-      <div class="row-fluid meal">
-                  <div class="tile-listviewitem" primaryMealId="{{_id}}">
-                     <div class="span2">
-                        <div class="ddm" style="float: right; border: 1px solid #000000;width: 20px; background-color: {{color}}">
-                            <div class="dropdown">
-                                <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                   {{> kur}}
-                                </ul>
-                            </div>
-                        </div>
-                     </div>
-                     <div class="span10">
-                        <div class="detail">
-                           <div class="title order{{primary.ordered}}" style="display: inline-block">{{primary.name}}</div>
-                           <div class="subtitle" style="display: inline-block">{{primary.score}} лв.</div>
-                            {{#unless primary.ordered}}
-                                <div style="display: inline-block"> not ordered</div>
-                            {{/unless}}
-                        </div>
-                     </div>
-                  </div>
-               </div>
-    {{/each}}
-          <span style="margin-left: 80px;">BACKUP</span>
-    {{#each meals}}
-	 {{#if secondary}}
-      <div class="row-fluid meal">
-                  <div class="tile-listviewitem">
-                     <div class="span2">
-                         <div style="float: right; right; border: 1px solid #000000; width: 20px; background-color: {{color}}">&nbsp</div>
-                     </div>
-                     <div class="span10">
-                        <div class="detailSecondary" title="{{primary.name}}">
-                           <div class="title" style="display: inline-block">{{secondary.name}}</div>
-                           <div class="subtitle" style="display: inline-block">{{secondary.score}} лв.</div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-	{{/if}}
-    {{/each}}
-    </div>
-</template>
-<template name="kur">
-    {{#each options}}
-        <li><a class="secondaryAlternative" href="#">{{secondary.name}}</a></li>
-    {{/each}}
-</template>
-<template name="player">
- <div class="row-fluid meal">
-                  <div class="tile-listviewitem">
-                     <div class="span1">
-                        &nbsp;
-                     </div>
-                     <div class="span11">
-                        <div class="detail">
-                           <div class="title" style="display: inline-block">{{name}}</div>
-                           <div class="subtitle" style="display: inline-block">{{score}} лв.</div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-</template>
 
-<template name="allMealsToOrder">
-    {{#each  meals}}
-    <div class="row-fluid meal">
-        <div class="tile-listviewitem">
-            <div class="span2">
-                &nbsp;
-            </div>
-            <div class="span10">
-                <div class="detail">
-                    <div>
-                        <div class="counter" style="display: inline-block">{{orderQuantity}} x </div>
-                        <div class="title" style="display: inline-block">{{name}}</div>
 
-                        {{#if_eq this}}
-                            <div style="display: inline-block"><button class="noMeal login-button" >Няма({{secondaryMealsLeft orderQuantity orderNotes}})</button></div>
-                        {{else}}
-                            &nbsp;
-                        {{/if_eq}}
-                    </div>
-                    <div class="subtitle alternativeMeals" style="display: block">{{orderNotes}}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{else}}
-    <div class="row-fluid meal">
-        <div class="tile-listviewitem">
-            <div class="span2">
-                &nbsp;
-            </div>
-            <div class="span10">
-                <div class="detail">
-                    NO MEALS ORDERED!!!!!!!!!!!
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/each}}
-</template>
