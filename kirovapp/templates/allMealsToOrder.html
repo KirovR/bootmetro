@@ -1,4 +1,14 @@
 <template name="allMealsToOrder">
+    {{#unless ordersLocked.ordersLocked}}
+    {{#if meals.length}}
+    <div class="row-fluid meal">
+        <div class="span2">
+            &nbsp;
+        </div>
+        <button class="login-button" id="lockOrders">Begin order process </button>
+    </div>
+    {{/if}}
+    {{/unless}}
     {{#each  meals}}
     <div class="row-fluid meal">
         <div class="tile-listviewitem">
@@ -10,12 +20,13 @@
                     <div>
                         <div class="counter" style="display: inline-block">{{orderQuantity}} x </div>
                         <div class="title" style="display: inline-block">{{name}}</div>
-
-                        {{#if_eq this}}
-                        <div style="display: inline-block"><button class="noMeal login-button" >Няма({{secondaryMealsLeft orderQuantity orderNotes}})</button></div>
-                        {{else}}
-                        &nbsp;
-                        {{/if_eq}}
+                        {{#if ordersLocked.ordersLocked}}
+                            {{#if_eq this}}
+                            <div style="display: inline-block"><button class="noMeal login-button" title="Покажи алтернативи">Няма({{secondaryMealsLeft orderQuantity orderNotes}})</button></div>
+                            {{else}}
+                            &nbsp;
+                            {{/if_eq}}
+                        {{/if}}
                     </div>
                     <div class="subtitle alternativeMeals" style="display: block">{{orderNotes}}</div>
                 </div>

@@ -170,18 +170,27 @@ a.header-dropdown .caret {
     font-size: 11px!important;
 }
 .noMeal {
-    background-clip: padding-box;
-    border: 2px solid #CCCCCC;
-    font-weight: 600;
-    line-height: 1.3636;
-    margin-bottom: 0;
-    padding: 2px 8px;
-    cursor: pointer;
-    font-size: 80%;
-    line-height: 1.5;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    display: inline-block;
+    --font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    height: 32px;
+    --line-height: 40px !important;
+    min-height: 0;
+    min-width: 0;
+    outline: 0 none;
+    padding: 0;
     text-align: center;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    text-transform: none;
+    width: 82px;
+    vertical-align: top;
+    color: #FFFFFF;
 
 }
 .tile-listviewitem .orderfalse{

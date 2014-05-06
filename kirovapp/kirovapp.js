@@ -42,6 +42,29 @@ if (Meteor.isClient) {
         var leftMeals =  meal.orderQuantity - (meal.orderNotes !== undefined ? meal.orderNotes.length : 0);
         return leftMeals > 0 ? opts.fn(this) : opts.inverse(this);
     });
+    Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+
+        switch (operator) {
+            case '==':
+                return (v1 == v2) ? options.fn(this) : options.inverse(this);
+            case '===':
+                return (v1 === v2) ? options.fn(this) : options.inverse(this);
+            case '<':
+                return (v1 < v2) ? options.fn(this) : options.inverse(this);
+            case '<=':
+                return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+            case '>':
+                return (v1 > v2) ? options.fn(this) : options.inverse(this);
+            case '>=':
+                return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+            case '&&':
+                return (v1 && v2) ? options.fn(this) : options.inverse(this);
+            case '||':
+                return (v1 || v2) ? options.fn(this) : options.inverse(this);
+            default:
+                return options.inverse(this);
+        }
+    });
 
     Meteor.subscribe("GlobalOptions");
 	Meteor.subscribe("allMeals");
@@ -71,6 +94,17 @@ if (Meteor.isClient) {
     Template.allMealsToOrder.meals = function(){
         return AllMeals.find({orderQuantity : {$gt : 0}}, {sort: {orderQuantity: -1, name: 1}});
     }
+    Template.allMealsToOrder.ordersLocked = function(){
+        console.log( GlobalOptions.findOne())
+          return   GlobalOptions.findOne();
+//        var status = GlobalOptions.find();
+//        console.log(status);
+//        if( (status.ordersLocked = undefined || status.ordersLocked != "undefined") && status.ordersLocked ){
+//            return true;
+//        }else{
+//            return false;
+//        }
+    }
     Template.allMealsToOrder.events({
         'click .noMeal' : function(event){
              Meteor.call("missingMeal", this._id, function (error, result){
@@ -81,7 +115,9 @@ if (Meteor.isClient) {
                 $("#asdf").html(result);
                 $("#hiddenOrderManiq").remove();
             })
-
+        },
+        'click #lockOrders' : function(event){
+            Meteor.call("lockOrders");
         }
 
     });
@@ -170,7 +206,9 @@ if (Meteor.isServer) {
            before: {  // This methods, if defined, will be called before the POST/GET/PUT/DELETE actions are performed on the collection. If the function returns false the action will be canceled, if you return true the action will take place.
                POST: function(collectionId, obj, newValues){
                    AllMeals.remove({});
+                   SelectedMeals.remove({});
                    GlobalOptions.remove({});
+
                    for (var i = 0; i < collectionId.meals.length; i++){
                        AllMeals.insert(collectionId.meals[i]);
                     }
@@ -210,6 +248,12 @@ if (Meteor.isServer) {
 
   SelectedMeals.find({}).observeChanges({
          added: function (doc, idx) {
+             console.log("looool wrf");
+             console.log(idx._id);
+             console.log(idx.primary.name);
+             if(undefined == idx._id){
+                 return;
+             }
                  var primaryOrderedMeal = idx.primary._id;
                  AllMeals.update({_id : primaryOrderedMeal}, {$inc : {orderQuantity : 1 } });
 
@@ -251,6 +295,10 @@ if (Meteor.isServer) {
         getRandomVic: function(){
             var options = GlobalOptions.findOne({});
             return options.vic;
+        },
+        lockOrders: function(){
+            ordersClosed = true;
+            GlobalOptions.update({}, {$set: {ordersLocked : true }}, {multi: true});
         }
     });
 
