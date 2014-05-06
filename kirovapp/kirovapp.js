@@ -263,13 +263,12 @@ if (Meteor.isServer) {
                 secondaryMealToOrder =  SelectedMeals.findOne({"primary._id" : primaryMealId, processed : {$exists : false}}, {sort: {secondary: 1}});
             }
             SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {processed: true}});
-
+            SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {"primary.ordered" : false}});
             if (undefined === secondaryMealToOrder.secondary){
                 AllMeals.update({_id : primaryMealId}, {$push: {orderNotes : ["Няма второ, продължавай"]}});
                 return "Няма второ, продължавай";
             }else{
                  AllMeals.update({_id : primaryMealId}, {$push: {orderNotes  : secondaryMealToOrder.secondary.name}});
-                 SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {"primary.ordered" : false}});
                  return secondaryMealToOrder.secondary.name;
             }
 
