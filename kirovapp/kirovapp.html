@@ -3,6 +3,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <!--<![endif]-->
 <head>
+    <!-- What are you looking at no easter eggs here http://bit.ly/IqT6zt  -->
 
 <!--[if lt IE 7]><script type="text/javascript">$(function(){$('html').attr('class','no-js lt-ie9 lt-ie8 lt-ie7')});</script><![endif]-->
 <!--[if IE 7]><script type="text/javascript">$(function(){$('html').attr('class','no-js lt-ie9 lt-ie8')});</script><![endif]-->
@@ -27,25 +28,13 @@
    <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-responsive.css">
    <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-icons.css">
    <link rel="stylesheet" type="text/css" href="./assets/css/bootmetro-ui-light.css">
-   <link rel="stylesheet" type="text/css" href="./assets/css/datepicker.css">
    <link rel="stylesheet" type="text/css" href="./assets/css/slider/tutorsty.css">
-   <link rel="stylesheet" type="text/css" href="./assets/css/slider/flexcrollstyles.css.css">
+
    <link rel="stylesheet" type="text/css" href="./assets/css/kirov.css">
-
-
-
-   <!--  these two css are to use only for documentation -->
    <link rel="stylesheet" type="text/css" href="./assets/css/demo.css">
 
-   <link rel="shortcut icon" href="./assets/ico/favicon.ico">
-   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./assets/ico/apple-touch-icon-144-precomposed.png">
-   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="./assets/ico/apple-touch-icon-114-precomposed.png">
-   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="./assets/ico/apple-touch-icon-72-precomposed.png">
-   <link rel="apple-touch-icon-precomposed" href="./assets/ico/apple-touch-icon-57-precomposed.png">
-  
-   <!-- All JavaScript at the bottom, except for Modernizr and Respond.
-      Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-      For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+
+
    <script1 src="./assets/js/modernizr-2.6.2.min.js"></script1>
 
 </head>
@@ -90,17 +79,16 @@
        <div class="metro panorama" style="width: 97%"> <!-- Kirov -->
           <div class="panorama-sections">
             <div class="panorama-section" style="min-width: 1600px;">
-             <h2>Place order</h2>
+                {{> titleTemplate}}
 					 
-					 
-					<div class="container" style="width: 100%">
+<div class="container" style="width: 100%">
       <div class="row" id="meals">
          <div class="metro span5">
 			<article class="tile-listviewitem-detail">
 				<header>
                    
                   <div class="titles">
-                     <h1>Menu</h1>
+                     <h1 title="Did you know: The word menu, like much of the terminology of cuisine, is French in origin. It ultimately derives from Latin minutus, something made small; in French it came to be applied to a detailed list or résumé of any kind.">Menu</h1>
                   </div>
                </header>
 			</article>
@@ -161,7 +149,13 @@
         }
     </style>
 </template>
-
+<template name="titleTemplate">
+{{#if options.ordersLocked}}
+    <h2>Orders purchased, Thank you</h2>
+{{else}}
+     <h2>Place order</h2>
+{{/if}}
+</template>
 
 
 

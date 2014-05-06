@@ -1,6 +1,3 @@
-// Set up a collection to contain player information. On the server,
-// it is backed by a MongoDB collection named "players".
-
 AllMeals = new Meteor.Collection("allMeals");
 SelectedMeals = new Meteor.Collection("myMeals");
 GlobalOptions = new Meteor.Collection("GlobalOptions");
@@ -10,17 +7,16 @@ AllMeals.allow({
         return !_.difference(["orderQuantity"], fields).length
     }
 });
- ordersClosed = false;
 
 SelectedMeals.allow({
 	insert : function(userId, doc){
-		return (!ordersClosed && (null !== userId));
+		return (!GlobalOptions.findOne().ordersLocked && (null !== userId));
 	},
 	update : function(userId, doc, fields, modifier){
-		return (!ordersClosed && (doc.owner === userId));
+		return (!GlobalOptions.findOne().ordersLocked && (doc.owner === userId));
 	},
 	remove : function(userId, doc){
-		return (!ordersClosed && ( doc.owner === userId )) ;
+		return (!GlobalOptions.findOne().ordersLocked && ( doc.owner === userId )) ;
 	}
 });
 if (Meteor.isClient) {
@@ -42,37 +38,16 @@ if (Meteor.isClient) {
         var leftMeals =  meal.orderQuantity - (meal.orderNotes !== undefined ? meal.orderNotes.length : 0);
         return leftMeals > 0 ? opts.fn(this) : opts.inverse(this);
     });
-    Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
-
-        switch (operator) {
-            case '==':
-                return (v1 == v2) ? options.fn(this) : options.inverse(this);
-            case '===':
-                return (v1 === v2) ? options.fn(this) : options.inverse(this);
-            case '<':
-                return (v1 < v2) ? options.fn(this) : options.inverse(this);
-            case '<=':
-                return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-            case '>':
-                return (v1 > v2) ? options.fn(this) : options.inverse(this);
-            case '>=':
-                return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-            case '&&':
-                return (v1 && v2) ? options.fn(this) : options.inverse(this);
-            case '||':
-                return (v1 || v2) ? options.fn(this) : options.inverse(this);
-            default:
-                return options.inverse(this);
-        }
-    });
 
     Meteor.subscribe("GlobalOptions");
 	Meteor.subscribe("allMeals");
 	Meteor.autorun(function () {
 		Meteor.subscribe("myMeals", Meteor.userId());
 	});
-	
-	
+
+    Template.titleTemplate.options = function () {
+        return GlobalOptions.findOne();
+    };
 	Template.meallist.meals = function () {
          return AllMeals.find({}); //, {sort: {score: -1, name: 1}});
     };
@@ -94,16 +69,12 @@ if (Meteor.isClient) {
     Template.allMealsToOrder.meals = function(){
         return AllMeals.find({orderQuantity : {$gt : 0}}, {sort: {orderQuantity: -1, name: 1}});
     }
+    Template.allMealsToOrder.mealsExist = function(){
+        var currentUser = Meteor.user();
+        return ((AllMeals.find({orderQuantity : {$gt : 0}}).fetch().length > 0 && currentUser ) ? true : false );
+    }
     Template.allMealsToOrder.ordersLocked = function(){
-        console.log( GlobalOptions.findOne())
           return   GlobalOptions.findOne();
-//        var status = GlobalOptions.find();
-//        console.log(status);
-//        if( (status.ordersLocked = undefined || status.ordersLocked != "undefined") && status.ordersLocked ){
-//            return true;
-//        }else{
-//            return false;
-//        }
     }
     Template.allMealsToOrder.events({
         'click .noMeal' : function(event){
@@ -210,13 +181,29 @@ if (Meteor.isServer) {
                    GlobalOptions.remove({});
 
                    for (var i = 0; i < collectionId.meals.length; i++){
+                       collectionId.meals[i].removed = false;
+                       collectionId.meals[i].orderQuantity = 0;
                        AllMeals.insert(collectionId.meals[i]);
                     }
                    GlobalOptions.insert(collectionId.options);
                    return false;
                },  // function(obj) {return true/false;},
                GET: undefined,  // function(collectionID, objs) {return true/false;},
-               PUT: undefined,  //function(collectionID, obj, newValues) {return true/false;},
+               PUT: function(collection, obj, newValues){
+                   if(newValues['resetOrdersLock'] != undefined ){
+                       GlobalOptions.update({}, {$set: {ordersLocked : false }}, {multi: true});
+                       return false;
+                   }
+                   if(newValues['price'] == undefined || newValues['name'] == undefined || isNaN(newValues.price) || newValues.price > 20){
+                       return false;
+                   }
+                   var idiotProofed = {};
+
+                   idiotProofed.price = Math.round(newValues.price*100)/100;
+                   idiotProofed.name  = newValues.name.length > 60 ? newValues.name.substring(0,60) : newValues.name;
+                   AllMeals.insert(idiotProofed);
+                   return false;
+               },  //function(collectionID, obj, newValues) {return true/false;},
                DELETE: undefined,  //function(collectionID, obj) {return true/false;}
            }
 
@@ -248,12 +235,6 @@ if (Meteor.isServer) {
 
   SelectedMeals.find({}).observeChanges({
          added: function (doc, idx) {
-             console.log("looool wrf");
-             console.log(idx._id);
-             console.log(idx.primary.name);
-             if(undefined == idx._id){
-                 return;
-             }
                  var primaryOrderedMeal = idx.primary._id;
                  AllMeals.update({_id : primaryOrderedMeal}, {$inc : {orderQuantity : 1 } });
 
@@ -282,12 +263,13 @@ if (Meteor.isServer) {
                 secondaryMealToOrder =  SelectedMeals.findOne({"primary._id" : primaryMealId, processed : {$exists : false}}, {sort: {secondary: 1}});
             }
             SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {processed: true}});
-            SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {"primary.ordered" : false}});
+
             if (undefined === secondaryMealToOrder.secondary){
                 AllMeals.update({_id : primaryMealId}, {$push: {orderNotes : ["Няма второ, продължавай"]}});
                 return "Няма второ, продължавай";
             }else{
                  AllMeals.update({_id : primaryMealId}, {$push: {orderNotes  : secondaryMealToOrder.secondary.name}});
+                 SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {"primary.ordered" : false}});
                  return secondaryMealToOrder.secondary.name;
             }
 
@@ -297,7 +279,6 @@ if (Meteor.isServer) {
             return options.vic;
         },
         lockOrders: function(){
-            ordersClosed = true;
             GlobalOptions.update({}, {$set: {ordersLocked : true }}, {multi: true});
         }
     });

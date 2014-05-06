@@ -14,7 +14,13 @@ a:hover{
     background-color: white;
     border: 1px;
 }
-
+#login-buttons a, .accounts-dialog a {
+    text-decoration: none;
+}
+.metro .tile-listviewitem {
+cursor: default;
+}
+}
 #login-buttons a, .accounts-dialog a {
     cursor: pointer;
     text-decoration: none;
@@ -169,7 +175,7 @@ a.header-dropdown .caret {
     margin-left: 25px;
     font-size: 11px!important;
 }
-.noMeal {
+.noMeal, #lockOrders {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     border-radius: 5px;
     border-style: solid;
@@ -179,19 +185,29 @@ a.header-dropdown .caret {
     font-style: normal;
     font-variant: normal;
     font-weight: normal;
-    height: 32px;
+   -- height: 32px;
     --line-height: 40px !important;
     min-height: 0;
     min-width: 0;
     outline: 0 none;
-    padding: 0;
+    padding: 0 0 1px 0;
     text-align: center;
     text-decoration: none;
     text-transform: none;
     width: 82px;
     vertical-align: top;
     color: #FFFFFF;
+    cursor: pointer;
+}
+#lockOrders{
+    width: auto;
+    padding: 8px 5px 8px 5px;
+    margin: 10px 0 10px 43px;
+ }
 
+#lockOrders:hover{
+    color: #cc3333;
+    border-color: #cc3333;
 }
 .tile-listviewitem .orderfalse{
     text-decoration: line-through;

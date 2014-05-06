@@ -1,11 +1,11 @@
 <template name="allMealsToOrder">
     {{#unless ordersLocked.ordersLocked}}
-    {{#if meals.length}}
+    {{#if mealsExist}}
     <div class="row-fluid meal">
         <div class="span2">
             &nbsp;
         </div>
-        <button class="login-button" id="lockOrders">Begin order process </button>
+        <button class="login-button" id="lockOrders" title="What is done cannot be undone">Begin order process - locks orders. Be careful! </button>
     </div>
     {{/if}}
     {{/unless}}
@@ -22,7 +22,7 @@
                         <div class="title" style="display: inline-block">{{name}}</div>
                         {{#if ordersLocked.ordersLocked}}
                             {{#if_eq this}}
-                            <div style="display: inline-block"><button class="noMeal login-button" title="Покажи алтернативи">Няма({{secondaryMealsLeft orderQuantity orderNotes}})</button></div>
+                            <div style="display: inline-block" class="noMeal">Няма({{secondaryMealsLeft orderQuantity orderNotes}})</div>
                             {{else}}
                             &nbsp;
                             {{/if_eq}}
