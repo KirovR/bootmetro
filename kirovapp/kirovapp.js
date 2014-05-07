@@ -70,8 +70,11 @@ if (Meteor.isClient) {
         return AllMeals.find({orderQuantity : {$gt : 0}}, {sort: {orderQuantity: -1, name: 1}});
     }
     Template.allMealsToOrder.mealsExist = function(){
-        var currentUser = Meteor.user();
-        return ((AllMeals.find({orderQuantity : {$gt : 0}}).fetch().length > 0 && currentUser ) ? true : false );
+        return ((AllMeals.find({orderQuantity : {$gt : 0}}).fetch().length > 0) ? true : false );
+    }
+    Template.allMealsToOrder.isUserAdmin = function(){
+        var user = Meteor.user();
+        return (user != null && user.profile != undefined && user.profile.isadmin) ? true : false;
     }
     Template.allMealsToOrder.ordersLocked = function(){
           return   GlobalOptions.findOne();
@@ -99,11 +102,15 @@ if (Meteor.isClient) {
 	'mousedown' : function(event){
 		 switch (event.which) {
         case 1:
+            var loggedInUser = Meteor.user();
+            if(loggedInUser == null || loggedInUser.profile != undefined && loggedInUser.profile.isadmin){
+                break;
+            }
 			if(SelectedMeals.find({"primary._id" : this._id}).fetch().length == 0){
 				//var that =  jQuery.extend(true, {}, this);
                 var colorForTheMeal = colorStack.pop();
                 SelectedMeals.findOne({color: {}})
-				SelectedMeals.insert({primary: this, color : colorForTheMeal, owner : Meteor.userId(), removed : false}, function(err){
+				SelectedMeals.insert({primary: this, color : colorForTheMeal, owner: loggedInUser._id, ownerName: loggedInUser.emails[0].address,   removed : false}, function(err){
 					if(err !== undefined && err.error === 403){ //access denied
 						return;
 					}
@@ -118,6 +125,10 @@ if (Meteor.isClient) {
         case 2:
               break;
         case 3:
+            var loggedInUser = Meteor.user();
+            if(loggedInUser == null || loggedInUser.profile != undefined && loggedInUser.profile.isadmin){
+                break;
+            }
 			if( SelectedMeals.find({ $or : [ {"primary._id" : this._id}, {"secondary._id" : this._id} ] }).fetch().length > 0 ){
 				break;
 			}
@@ -163,13 +174,33 @@ if (Meteor.isClient) {
             SelectedMeals.update({_id : this._id}, { $set: { secondary : currentSecondaryMeal }});
         }
     });
-  
+
+    Template.listAlternativeMeals.events({
+        'click' : function(event){
+            var user = Meteor.user();
+            if(null == user || user.profile == undefined || !user.profile.isadmin){
+                return;
+            }
+            Meteor.call("missingSecondaryMeal", this.id, this._uuid,  function (error, result){
+            });
+        }
+    });
   
 }
 
 
 if (Meteor.isServer) {
    Meteor.startup(function () {
+
+       if ( Meteor.users.find().count() === 0 ) {
+           Accounts.createUser({
+               email: "admin@dimitur.com",
+               password: "apple1",
+               profile: { isadmin: true }
+           });
+       }
+
+
        collectionApi = new CollectionAPI({
            authToken: '97f0ad9e24ca5e0408a269748d7fe0a0'
        });
@@ -210,15 +241,17 @@ if (Meteor.isServer) {
        });
        collectionApi.start();
 
+
+
        if (GlobalOptions.find().count() === 0){
            GlobalOptions.insert({date: "Just another day", background: 2})
        }
     //   AllMeals.remove({});
     if (AllMeals.find().count() === 0) {
       var names = [{ price: 2.49, removed: false, orderQuantity:0,   name: 'АГНЕШКА КУРБАН ЧОРБА'}, { price: 1.99, removed: false, orderQuantity:0,   name: 'СУПА ТОПЧЕТA'}, { price: 1.99, removed: false, orderQuantity:0,   name: 'ТАРАТОР'		                                                                                                                                 }, { price: 1.99, removed: false, orderQuantity:0,   name: 'ПИЛЕШКА СУПА'			                                                                                                                         }, { price: 2.49, removed: false, orderQuantity:0,   name: 'ШКЕМБЕ ЧОРБА'			                                                                                                                         }, { price: 1.49, removed: false, orderQuantity:0,   name: 'БОБ ЧОРБА'			                                                                                                                             }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ПИЦА С ЧЕРНО ТЕСТО С ПИЛЕШКО ФИЛЕ И ЦАРЕВИЦА  - МАЛКА'                                                                                          }, { price: 4.99, removed: false, orderQuantity:0,   name: 'ПИЦА С ЧЕРНО ТЕСТО С ПИЛЕШКО ФИЛЕ И ЦАРЕВИЦА  - ГОЛЯМА'									                                                     }, { price: 2.99, removed: false, orderQuantity:0,   name: 'САЛАТА КИСЕЛИ КРАСТАВИЧКИ ОТ ТУРШИЯ'				                                                                                             }, { price: 2.99, removed: false, orderQuantity:0,   name: 'СУРОВА ТУРШИЯ'			                                                                                                                         }, { price: 3.99, removed: false, orderQuantity:0,   name: 'АЙДЕМИРСКА САЛАТА(кисело зеле, бекон, червен пипер на тиган)'                 }, { price: 5.99, removed: false, orderQuantity:0,   name: 'ТЕЛЕШКИ КЕБАПЧЕНЦА С БЯЛ ОРИЗ, КИС. КРАСТ. И ЛЮТЕНИЦА'							                             }, { price: 4.49, removed: false, orderQuantity:0,   name: 'ПИЛЕШКИ КЮФТЕТА С ПЪРЖЕНИ КАРТОФИ И ЛЮТЕНИЦА'						                                                                             }, { price: 4.29, removed: false, orderQuantity:0,   name: 'ПЪРЖЕН ШНИЦЕЛ С КАРТОФЕНА САЛАТА И ЛЮТЕНИЦА'								                                                                     }, { price: 6.99, removed: false, orderQuantity:0,   name: 'СВИНСКО ПЕЧЕНО НА ПЕЩ С КАРТОФЕНО ПЮРЕ И ГЪБЕН СОС'									                                                         }, { price: 5.99, removed: false, orderQuantity:0,   name: 'ПИЛЕШКО ФИЛЕ С ТОПЕНО СИРЕНЕ, СМЕТАНА И КИС. КРАСТАВИЧКИ'									                     }, { price: 5.49, removed: false, orderQuantity:0,   name: 'СВИНСКИ МРЪВКИ ПО СЕЛСКИ'									                                                                                     }, { price: 3.99, removed: false, orderQuantity:0,   name: 'КЮФТЕТА ПО ЦАРИГРАДСКИ С КАРТОФЕНО ПЮРЕ'									                                                                     }, { price: 3.69, removed: false, orderQuantity:0,   name: 'ПЪЛНЕНИ ЧУШКИ С БОБ'									                                                                                         }, { price: 5.99, removed: false, orderQuantity:0,   name: 'СВИНСКО КЪЛЦАНО В ТЕСТО'									                                                                                     }, { price: 3.49, removed: false, orderQuantity:0,   name: 'ЗАДУШЕНИ КАРТОФИ НА ФУРНА'									                                                                                     }, { price: 3.99, removed: false, orderQuantity:0,   name: 'БОБ С НАДЕНИЦА'									                                                                                             }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ДРОБ СЪРМА'				                                                                                                                     }, { price: 3.99, removed: false, orderQuantity:0,   name: 'МУСАКА'				                                                                                                                         }, { price: 3.99, removed: false, orderQuantity:0,   name: 'СВИНСКО С КИСЕЛО ЗЕЛЕ'				                                                                                                             }, { price: 3.69, removed: false, orderQuantity:0,   name: 'КАРТОФЕНИ КЮФТЕТА'				                                                                                                                 }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ПИЛЕ ФРИКАСЕ'				                                                                                                                     }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ЗЕЛЕВИ САРМИ'				                                                                                                                     }, { price: 6.99, removed: false, orderQuantity:0,   name: 'МОЗЪК В МАСЛО'				                                                                                                                     }, { price: 2.99, removed: false, orderQuantity:0,   name: 'ЛЕЩА ЯХНИЯ'			                                                                                                                         }, { price: 3.99, removed: false, orderQuantity:0,   name: 'РУЛО СТЕФАНИ'			                                                                                                                         }, { price: 4.29, removed: false, orderQuantity:0,   name: 'СВИНСКА КАВАРМА'			                                                                                                                     }, { price: 3.69, removed: false, orderQuantity:0,   name: 'КАРТОФЕН ПАЙ С КАЙМА'			                                                                                                                 }, { price: 2.99, removed: false, orderQuantity:0,   name: 'БОБ ЯХНИЯ'			                                                                                                                             }, { price: 3.99, removed: false, orderQuantity:0,   name: 'ПИЛЕ С ОРИЗ'		                                                                                                                             }, { price: 6.99, removed: false, orderQuantity:0,   name: 'МОЗЪК ПАНЕ'		                                                                                                                             }];
-        //for (var i = 0; i < names.length; i++)
+        for (var i = 0; i < names.length; i++)
 
-      //  AllMeals.insert(names[i]);
+        AllMeals.insert(names[i]);
     }
   });
     Meteor.publish("GlobalOptions", function (userId) {
@@ -257,7 +290,7 @@ if (Meteor.isServer) {
     Meteor.methods({
 
         missingMeal: function (primaryMealId) {
-            var secondaryMealToOrder =  SelectedMeals.findOne({"primary._id" : primaryMealId, processed : {$exists : false} , secondary : { $exists : true } }, {sort: {secondary: 1}});
+            var secondaryMealToOrder =  SelectedMeals.findOne({"primary._id" : primaryMealId, processed : {$exists : false} , secondary : { $exists : true } } );
             if(undefined === secondaryMealToOrder)
             {
                 secondaryMealToOrder =  SelectedMeals.findOne({"primary._id" : primaryMealId, processed : {$exists : false}}, {sort: {secondary: 1}});
@@ -265,10 +298,10 @@ if (Meteor.isServer) {
             SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {processed: true}});
             SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {"primary.ordered" : false}});
             if (undefined === secondaryMealToOrder.secondary){
-                AllMeals.update({_id : primaryMealId}, {$push: {orderNotes : ["Няма второ, продължавай"]}});
+                AllMeals.update({_id : primaryMealId},  {orderNotes  : {name : "Няма второ", ownerName: secondaryMealToOrder.ownerName } } );
                 return "Няма второ, продължавай";
             }else{
-                 AllMeals.update({_id : primaryMealId}, {$push: {orderNotes  : secondaryMealToOrder.secondary.name}});
+                 AllMeals.update({_id : primaryMealId}, {$push: {orderNotes  : {_uuid: Meteor.uuid(), name : secondaryMealToOrder.secondary.name,  ownerName: secondaryMealToOrder.ownerName, id: secondaryMealToOrder._id } } } );
                  return secondaryMealToOrder.secondary.name;
             }
 
@@ -279,7 +312,18 @@ if (Meteor.isServer) {
         },
         lockOrders: function(){
             GlobalOptions.update({}, {$set: {ordersLocked : true }}, {multi: true});
+        },
+        missingSecondaryMeal: function(orderId, uuid){
+            var order = SelectedMeals.findOne({_id: orderId});
+            if(order.secondary.ordered == undefined || order.secondary.ordered == true){
+                SelectedMeals.update({_id: orderId}, {$set: {"secondary.ordered": false}});
+                AllMeals.update({_id:order.primary._id, "orderNotes._uuid": uuid}, {$set: {"orderNotes.$.ordered": false}})
+            }else{
+                SelectedMeals.update({_id: orderId}, {$set: {"secondary.ordered": true}});
+                AllMeals.update({_id:order.primary._id, "orderNotes._uuid": uuid}, {$set: {"orderNotes.$.ordered": true}})
+            }
         }
+
     });
 
 
