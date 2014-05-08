@@ -216,9 +216,18 @@ a.header-dropdown .caret {
 .alternativeMealListing{
     margin-left: 10px;
 }
-
-
-
+.modal-body{
+    color:
+}
+#alerts-container{
+    display: none;
+}
+.toast {
+    height: 100px;
+}
+.toast.toasttext02 p {
+    height: 62px;
+}
 
 
 

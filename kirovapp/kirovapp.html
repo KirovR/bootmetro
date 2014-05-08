@@ -134,7 +134,7 @@
             <!--</div>-->
          <!--</div>-->
       <!--</div>-->
-   
+   {{> infoDialog}}
    </div>
 
 
@@ -148,14 +148,35 @@
         background: url("./assets/img/bg{{options.background}}.jpg") repeat scroll 0 0 rgba(0, 0, 0, 0);
         }
     </style>
+    {{#if options.timerActivated}}
+    <style>
+        #alerts-container{
+            display: block!important;
+        }
+    </style>
+    {{/if}}
 </template>
 <template name="titleTemplate">
-{{#if options.ordersLocked}}
-    <h2>Orders purchased, Thank you</h2>
-{{else}}
-     <h2>Place order</h2>
-{{/if}}
+    {{#if options.ordersLocked}}
+        <h2>Orders purchased, Thank you</h2>
+    {{else}}
+         <h2>Place order</h2>
+    {{/if}}
 </template>
 
+<template name="infoDialog">
+    <div id="alerts-container">
+        <div id="toast-example1" class="toast toasttext02 fade in">
+            <button type="button" class="close closeKirovdialog" data-dismiss="alert"></button>
+            <div class="pull-left">
+                <div class="toast-object icon-info-4"></div>
+            </div>
+            <div class="toast-body">
+                <h4 class="toast-heading">Hurry up!</h4>
+                <p>Ordering is about to close. Please finish up your orders.</p>
+            </div>
+        </div>
+    </div>
+</template>
 
 

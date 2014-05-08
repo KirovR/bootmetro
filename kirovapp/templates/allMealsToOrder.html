@@ -3,12 +3,22 @@
     {{#if isUserAdmin}}
         {{#if mealsExist}}
         {{#unless ordersLocked.ordersLocked}}
+        {{#if ordersLocked.timerActivated}}
+        <div class="row-fluid meal">
+            <div class="span2">
+                &nbsp;
+            </div>
+           Users notified please wait 3 minutes to begin order process.
+        </div>
+        {{else}}
             <div class="row-fluid meal">
                 <div class="span2">
                     &nbsp;
                 </div>
                 <button class="login-button" id="lockOrders" title="What is done cannot be undone">Begin order process - locks orders. Be careful! </button>
             </div>
+        {{/if}}
+
         {{/unless}}
         {{/if}}
     {{/if}}

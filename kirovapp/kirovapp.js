@@ -79,6 +79,8 @@ if (Meteor.isClient) {
     Template.allMealsToOrder.ordersLocked = function(){
           return   GlobalOptions.findOne();
     }
+
+
     Template.allMealsToOrder.events({
         'click .noMeal' : function(event){
              Meteor.call("missingMeal", this._id, function (error, result){
@@ -94,6 +96,9 @@ if (Meteor.isClient) {
             Meteor.call("lockOrders");
         }
 
+    });
+    $(".closeKirovdialog").click(function(){
+        $("#alerts-container").remove();
     });
     //haha beat this QA tester :D
     var colorStack = ['#00FFFF', '#7FFFD4',  '#000000', '#FFEBCD', '#0000FF', '#8A2BE2', '#A52A2A', '#DEB887', '#5F9EA0', '#7FFF00', '#D2691E', '#FF7F50', '#6495ED',  '#DC143C', '#00FFFF', '#00008B', '#008B8B', '#B8860B', '#A9A9A9', '#006400', '#BDB76B', '#8B008B', '#556B2F', '#FF8C00', '#9932CC', '#8B0000', '#E9967A', '#8FBC8F', '#483D8B', '#2F4F4F', '#00CED1', '#9400D3', '#FF1493', '#00BFFF', '#696969', '#1E90FF', '#B22222',  '#228B22', '#FF00FF', '#FFD700', '#DAA520', '#808080', '#008000', '#ADFF2F', '#FF69B4', '#CD5C5C', '#4B0082',  '#F0E68C', '#7CFC00', '#FFFACD', '#ADD8E6', '#F08080', '#E0FFFF', '#FAFAD2', '#D3D3D3', '#90EE90', '#FFB6C1', '#FFA07A', '#20B2AA', '#87CEFA', '#778899', '#B0C4DE', '#FFFFE0', '#00FF00', '#32CD32', '#FAF0E6', '#FF00FF', '#800000', '#66CDAA', '#0000CD', '#BA55D3', '#9370DB', '#3CB371', '#7B68EE', '#00FA9A', '#48D1CC', '#C71585', '#191970', '#F5FFFA', '#FFE4E1', '#FFE4B5', '#FFDEAD', '#000080', '#FDF5E6', '#808000', '#6B8E23', '#FFA500', '#FF4500', '#DA70D6', '#EEE8AA', '#98FB98', '#AFEEEE', '#DB7093', '#FFEFD5', '#FFDAB9', '#CD853F', '#FFC0CB', '#DDA0DD', '#B0E0E6', '#800080', '#FF0000', '#BC8F8F', '#4169E1', '#8B4513', '#FA8072', '#F4A460', '#2E8B57', '#FFF5EE', '#A0522D', '#C0C0C0', '#87CEEB', '#6A5ACD', '#708090', '#FFFAFA', '#00FF7F', '#4682B4', '#D2B48C', '#008080', '#D8BFD8', '#FF6347', '#40E0D0', '#EE82EE', '#F5DEB3',  '#FFFF00', '#9ACD32', "#FFFFFF", "#F0AD4E", "#5BC0DE", "#5CB85C","#D9534F","#428BCA"];
@@ -171,7 +176,11 @@ if (Meteor.isClient) {
             var parentToChangeId = $(event.target).closest(".tile-listviewitem").attr("primaryMealId");
             var currentSecondaryMeal = SelectedMeals.findOne({_id : parentToChangeId}).secondary;
             SelectedMeals.update({_id : parentToChangeId}, {$set :{secondary : this.secondary}});
-            SelectedMeals.update({_id : this._id}, { $set: { secondary : currentSecondaryMeal }});
+            if(undefined != currentSecondaryMeal && "undefined" != currentSecondaryMeal) {
+                SelectedMeals.update({_id: this._id}, { $set: { secondary: currentSecondaryMeal }});
+            }else{
+                SelectedMeals.update({_id: this._id}, { $unset: { secondary: ""} });
+            }
         }
     });
 
@@ -297,8 +306,8 @@ if (Meteor.isServer) {
             }
             SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {processed: true}});
             SelectedMeals.update({_id : secondaryMealToOrder._id}, {$set : {"primary.ordered" : false}});
-            if (undefined === secondaryMealToOrder.secondary){
-                AllMeals.update({_id : primaryMealId},  {orderNotes  : {name : "Няма второ", ownerName: secondaryMealToOrder.ownerName } } );
+            if (undefined == secondaryMealToOrder.secondary || "undefined" == secondaryMealToOrder.secondary){
+                AllMeals.update({_id : primaryMealId},  { $push: {orderNotes: {name : "Няма второ", ownerName: secondaryMealToOrder.ownerName } } });
                 return "Няма второ, продължавай";
             }else{
                  AllMeals.update({_id : primaryMealId}, {$push: {orderNotes  : {_uuid: Meteor.uuid(), name : secondaryMealToOrder.secondary.name,  ownerName: secondaryMealToOrder.ownerName, id: secondaryMealToOrder._id } } } );
@@ -311,7 +320,23 @@ if (Meteor.isServer) {
             return options.vic;
         },
         lockOrders: function(){
-            GlobalOptions.update({}, {$set: {ordersLocked : true }}, {multi: true});
+            var totalTime = 180;
+            var mins, seconds, timeLeftLocal;
+            GlobalOptions.update({}, {$set: {timerActivated: true}}, {multi: true});
+
+            var timer = setInterval( Meteor.bindEnvironment(function(){
+                mins = totalTime/60;
+                seconds = totalTime%60;
+                totalTime--;
+                timeLeftLocal = '' + parseInt(mins) + ':'+String((seconds/100).toFixed(2)).substr(2,2);
+                GlobalOptions.update({}, {$set: {timeLeft: timeLeftLocal}}, {multi: true});
+                if(totalTime == 0){
+                    clearInterval(timer);
+                    GlobalOptions.update({}, {$set: {timerActivated: false}}, {multi: true});
+                    GlobalOptions.update({}, {$set: {ordersLocked : true }}, {multi: true});
+                }
+            },function( error) {console.log( error);}) , 1000);
+           // GlobalOptions.update({}, {$set: {ordersLocked : true }}, {multi: true});
         },
         missingSecondaryMeal: function(orderId, uuid){
             var order = SelectedMeals.findOne({_id: orderId});

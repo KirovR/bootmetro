@@ -8,6 +8,9 @@
                      {{options.date}}
                   </span>
             </div>
+            {{#if options.timerActivated}}
+                <p title="Time before ordering closes">{{options.timeLeft}}</p>
+            {{/if}}
         </div>
     </div>
 </template>
