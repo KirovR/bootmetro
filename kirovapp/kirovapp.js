@@ -363,7 +363,7 @@ if (Meteor.isServer) {
             return options.vic;
         },
         lockOrders: function(){
-            var totalTime = 2;
+            var totalTime = 300;
             var mins, seconds, timeLeftLocal;
             GlobalOptions.update({}, {$set: {timerActivated: true}}, {multi: true});
 
