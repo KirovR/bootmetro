@@ -1,5 +1,4 @@
 <template name="allMealsToOrder">
-
     {{#if isUserAdmin}}
         {{#if mealsExist}}
         {{#unless ordersLocked.ordersLocked}}
@@ -32,7 +31,7 @@
             <div class="span10">
                 <div class="detail">
                     <div>
-                        <div class="counter" style="display: inline-block">{{orderQuantity}} x </div>
+                        <div class="counter" style="display: inline-block" title="{{orderers}}">{{orderQuantity}} x </div>
                         <div class="title" style="display: inline-block">{{name}}</div>
                         {{#if ordersLocked.ordersLocked}}
                             {{#if isUserAdmin}}

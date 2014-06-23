@@ -41,8 +41,9 @@
 
 <body>
     {{> cssBackground}}
-   <!--[if lt IE 7]>
-   <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+
+   <!--[if lt IE 9]>
+   <p class="chromeframe">You are using an <strong>CRAP</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
    <![endif]-->
 
    <div id="wrap">
@@ -89,6 +90,7 @@
                    
                   <div class="titles">
                      <h1 title="Did you know: The word menu, like much of the terminology of cuisine, is French in origin. It ultimately derives from Latin minutus, something made small; in French it came to be applied to a detailed list or résumé of any kind.">Menu</h1>
+                      {{> addMealTemplate}}
                   </div>
                </header>
 			</article>
@@ -177,6 +179,23 @@
             </div>
         </div>
     </div>
+</template>
+
+<template name="addMealTemplate">
+    <span id="activateAddMeal" title="Add meal">+</span>
+    <div id="displayAddMeal" class="hideElement">
+        <div id="overlay"></div>
+        <div class='addMeal'>
+            <p>Add meal</p>
+            <span class="win-commandicon win-commandring icon-food" title="Meal name"></span>
+            <input id="mealNameInput" placeholder="Meal name"/>
+            <br/><br/>
+            <span class="win-commandicon win-commandring icon-tag-2" title="Price"></span>
+            <input id="mealPriceInput" placeholder="Price"/>
+            <br/><br/>
+            <button class="login-button" id="addMealBtn">Add&nbsp;</button>
+        </div>
+        </div>
 </template>
 
 

@@ -7,10 +7,11 @@ a {
 a:hover{
     color: #8e97b9;
 }
-#login-buttons .login-button, .accounts-dialog .login-button {
+#login-buttons .login-button, .accounts-dialog .login-button, .bar .login-button {
     color: #8e97b9;
     text-shadow: none;
     background-image: none;
+    background: none;
     background-color: white;
     border: 1px;
 }
@@ -231,3 +232,72 @@ a.header-dropdown .caret {
 
 
 
+
+.addMeal {
+    position: absolute;
+    top: 14px;
+    left: 150px;
+    margin: 5px;
+    text-align: center;
+    color: #FFF;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+    height: 245px;
+    width: 300px;
+    padding: 15px 15px 15px 15px;
+    background: rgba(190,220,250,0.35);
+    border-top: 1px solid rgba(250,253,255,0.2);
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 10000;
+}
+
+.addMeal input{
+    background-color:transparent;
+    border: none;
+    border-bottom: 2px solid #FFFFFF;
+    color: white;
+    outline: 0;
+    padding:  0 0 0 5px;
+}
+
+.addMeal .login-button{
+    float: right;
+    margin-right: 20px;
+    background: none;
+    color: white;
+    border-radius: 50%;
+    width: 47px;
+    height: 46px;
+    border-color: #ffffff;
+}
+
+.addMeal .login-button:hover{
+    border-color: rgba(204, 204, 204, 1);
+    background-color: rgba(204, 204, 204, 0.50);
+}
+
+.addMeal:hover { box-shadow: 0px 0px 5px rgba(0,0,0,0.4); }
+
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background: black;
+    opacity: 0.7;
+    filter:alpha(Opacity=70);
+    z-index: 999;
+}
+.titles #activateAddMeal{
+    font-weight: bold;
+    font-size: 25px;
+    cursor: pointer;
+}
+.titles #activateAddMeal:hover{
+    font-size: 27px;
+}
+
+.hideElement{
+    display: none
+}
