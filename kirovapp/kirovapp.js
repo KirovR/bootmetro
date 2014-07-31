@@ -263,6 +263,7 @@ if (Meteor.isServer) {
                    for (var i = 0; i < collectionId.meals.length; i++){
                        collectionId.meals[i].removed = false;
                        collectionId.meals[i].orderQuantity = 0;
+                       collectionId.meals[i].orderId = i;
                        AllMeals.insert(collectionId.meals[i]);
                     }
                    GlobalOptions.insert(collectionId.options);
@@ -307,7 +308,7 @@ if (Meteor.isServer) {
         return GlobalOptions.find();
     });
   Meteor.publish("allMeals", function () {
-	return AllMeals.find({});
+	return AllMeals.find({}, {sort : { orderId : 1}} );
 
   });
   Meteor.publish("myMeals", function (userId) {
@@ -404,6 +405,8 @@ if (Meteor.isServer) {
             idiotProofed.price = Math.round(mealPrice*100)/100;
             idiotProofed.name  =mealName.length > 60 ? mealName.substring(0,57)+'...' : mealName;
             idiotProofed.name = idiotProofed.name.toLowerCase();
+            idiotProofed.orderId = 200;
+
             AllMeals.insert(idiotProofed);
         }
 
